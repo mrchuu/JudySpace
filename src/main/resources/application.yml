@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog-root.xml
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  profiles:
+    active: local
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: e47fc128323c66c5ee39
+            client-secret: 604ddf0a2ab52a7aae78c5e8a6e31c57b7c14f11
+          google:
+            client-id: 430913915802-2g0jqvck78em2gdi6l1q3ou6p6474r8t.apps.googleusercontent.com
+            client-secret: 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
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: chuquyson123@gmail.com
+    password: uvvohtipassrryfd
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true

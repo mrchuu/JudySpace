@@ -1,0 +1,132 @@
+2023-10-16T09:19:17.945+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Starting JudySpaceLoginRegistrationDemoApplication using Java 17.0.8 with PID 21712 (E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo\target\classes started by FPT in E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo)
+2023-10-16T09:19:17.968+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : The following 1 profile is active: "local"
+2023-10-16T09:19:18.147+07:00  INFO 21712 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-10-16T09:19:18.149+07:00  INFO 21712 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-10-16T09:19:19.321+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T09:19:19.454+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 2 JPA repository interfaces.
+2023-10-16T09:19:20.684+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-16T09:19:20.694+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-16T09:19:20.694+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-16T09:19:20.762+07:00  INFO 21712 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-16T09:19:20.762+07:00  INFO 21712 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2612 ms
+2023-10-16T09:19:20.868+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-16T09:19:21.106+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@71daee86
+2023-10-16T09:19:21.109+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-16T09:19:21.338+07:00  INFO 21712 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2023-10-16T09:19:21.622+07:00  INFO 21712 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2023-10-16T09:19:21.631+07:00  INFO 21712 --- [restartedMain] liquibase.executor                       : Changelog query completed.
+2023-10-16T09:19:21.736+07:00  INFO 21712 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T09:19:21.802+07:00  INFO 21712 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-16T09:19:21.806+07:00  INFO 21712 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-16T09:19:21.988+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:19:22.142+07:00  INFO 21712 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-16T09:19:22.459+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:19:23.201+07:00  INFO 21712 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T09:19:23.204+07:00  INFO 21712 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:19:23.467+07:00  INFO 21712 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-16T09:19:24.062+07:00  WARN 21712 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T09:19:24.388+07:00  INFO 21712 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1b4ab1eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@52b66e06, org.springframework.security.web.context.SecurityContextHolderFilter@69b4b3ac, org.springframework.security.web.header.HeaderWriterFilter@5e40d04, org.springframework.web.filter.CorsFilter@5cd3f411, org.springframework.security.web.authentication.logout.LogoutFilter@7a614110, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@760778a3, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3d3e816d, com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.securityConfiguration.JwtAuthenticationFilter@c582af8, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@14feb8e8, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@22a77ce2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e667191, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5b968a25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6c2c44b4, org.springframework.security.web.session.SessionManagementFilter@41d306c3, org.springframework.security.web.access.ExceptionTranslationFilter@6b8f95cf, org.springframework.security.web.access.intercept.AuthorizationFilter@30419798]
+2023-10-16T09:19:24.984+07:00  INFO 21712 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-16T09:19:25.019+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-16T09:19:25.031+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Started JudySpaceLoginRegistrationDemoApplication in 7.845 seconds (process running for 8.629)
+2023-10-16T09:20:44.909+07:00  INFO 21712 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T09:20:44.909+07:00  INFO 21712 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-16T09:20:44.910+07:00  INFO 21712 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-10-16T09:20:56.505+07:00  WARN 21712 --- [http-nio-8080-exec-9] o.s.web.servlet.PageNotFound             : No mapping for GET /favicon.ico
+2023-10-16T09:23:02.188+07:00  INFO 21712 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-10-16T09:23:02.207+07:00  INFO 21712 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-16T09:23:02.209+07:00  INFO 21712 --- [Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T09:23:02.224+07:00  WARN 21712 --- [Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.8/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.8/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.8/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.8/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.8/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.8/java.lang.Thread.run(Thread.java:833)
+2023-10-16T09:23:02.229+07:00  INFO 21712 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:23:02.234+07:00  INFO 21712 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-16T09:23:02.237+07:00  INFO 21712 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-16T09:23:02.353+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Starting JudySpaceLoginRegistrationDemoApplication using Java 17.0.8 with PID 21712 (E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo\target\classes started by FPT in E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo)
+2023-10-16T09:23:02.353+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : The following 1 profile is active: "local"
+2023-10-16T09:23:02.659+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T09:23:02.689+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 2 JPA repository interfaces.
+2023-10-16T09:23:02.861+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-16T09:23:02.862+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-16T09:23:02.862+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-16T09:23:02.898+07:00  INFO 21712 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-16T09:23:02.898+07:00  INFO 21712 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 543 ms
+2023-10-16T09:23:02.932+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-16T09:23:02.983+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@71c36e84
+2023-10-16T09:23:02.983+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-16T09:23:02.997+07:00  INFO 21712 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2023-10-16T09:23:03.024+07:00  INFO 21712 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2023-10-16T09:23:03.026+07:00  INFO 21712 --- [restartedMain] liquibase.executor                       : Changelog query completed.
+2023-10-16T09:23:03.047+07:00  INFO 21712 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T09:23:03.053+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:23:03.053+07:00  INFO 21712 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-16T09:23:03.074+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:23:03.163+07:00  INFO 21712 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T09:23:03.163+07:00  INFO 21712 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:23:03.320+07:00  WARN 21712 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T09:23:03.384+07:00  INFO 21712 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@947a8e9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c2ca23d, org.springframework.security.web.context.SecurityContextHolderFilter@3d17916, org.springframework.security.web.header.HeaderWriterFilter@1dc5b2cc, org.springframework.web.filter.CorsFilter@5db05e34, org.springframework.security.web.authentication.logout.LogoutFilter@5678efb2, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@4f4fcc40, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@5e5baf64, com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.securityConfiguration.JwtAuthenticationFilter@247da578, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6dc967a1, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5e93fa69, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c43fa04, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1ca06e92, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a2711b2, org.springframework.security.web.session.SessionManagementFilter@38493a35, org.springframework.security.web.access.ExceptionTranslationFilter@774b0ed6, org.springframework.security.web.access.intercept.AuthorizationFilter@6fe15de9]
+2023-10-16T09:23:03.835+07:00  INFO 21712 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-16T09:23:03.845+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-16T09:23:03.849+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Started JudySpaceLoginRegistrationDemoApplication in 1.533 seconds (process running for 227.448)
+2023-10-16T09:23:03.852+07:00  INFO 21712 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-16T09:23:05.265+07:00  INFO 21712 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-10-16T09:23:05.278+07:00  INFO 21712 --- [Thread-7] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-16T09:23:05.280+07:00  WARN 21712 --- [Thread-7] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-2 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.8/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.8/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.8/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.8/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.8/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.8/java.lang.Thread.run(Thread.java:833)
+2023-10-16T09:23:05.281+07:00  WARN 21712 --- [Thread-7] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-2 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.8/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.8/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.8/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.8/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.8/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.8/java.lang.Thread.run(Thread.java:833)
+2023-10-16T09:23:05.283+07:00  INFO 21712 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:23:05.284+07:00  INFO 21712 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-16T09:23:05.286+07:00  INFO 21712 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-16T09:23:05.359+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Starting JudySpaceLoginRegistrationDemoApplication using Java 17.0.8 with PID 21712 (E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo\target\classes started by FPT in E:\Spring boot\JudySpace\JudySpaceLoginRegistrationDemo)
+2023-10-16T09:23:05.359+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : The following 1 profile is active: "local"
+2023-10-16T09:23:05.580+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T09:23:05.599+07:00  INFO 21712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 2 JPA repository interfaces.
+2023-10-16T09:23:05.709+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-16T09:23:05.710+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-16T09:23:05.710+07:00  INFO 21712 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-16T09:23:05.740+07:00  INFO 21712 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-16T09:23:05.741+07:00  INFO 21712 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 379 ms
+2023-10-16T09:23:05.761+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-10-16T09:23:05.803+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@484a7a05
+2023-10-16T09:23:05.803+07:00  INFO 21712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-10-16T09:23:05.820+07:00  INFO 21712 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2023-10-16T09:23:05.853+07:00  INFO 21712 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2023-10-16T09:23:05.855+07:00  INFO 21712 --- [restartedMain] liquibase.executor                       : Changelog query completed.
+2023-10-16T09:23:05.875+07:00  INFO 21712 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T09:23:05.883+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:23:05.883+07:00  INFO 21712 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-16T09:23:05.901+07:00  INFO 21712 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-16T09:23:05.951+07:00  INFO 21712 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T09:23:05.951+07:00  INFO 21712 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:23:06.092+07:00  WARN 21712 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T09:23:06.147+07:00  INFO 21712 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@d827910, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45a9f96a, org.springframework.security.web.context.SecurityContextHolderFilter@254f9ac9, org.springframework.security.web.header.HeaderWriterFilter@14fe2b03, org.springframework.web.filter.CorsFilter@5651b891, org.springframework.security.web.authentication.logout.LogoutFilter@63430a0b, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@55f8d27c, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2e90999a, com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.securityConfiguration.JwtAuthenticationFilter@6de82c96, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2e4b3be5, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7ca7a788, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@db33de0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@68f0b966, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62f30bf5, org.springframework.security.web.session.SessionManagementFilter@322e8a6f, org.springframework.security.web.access.ExceptionTranslationFilter@722b5fe7, org.springframework.security.web.access.intercept.AuthorizationFilter@79f622a8]
+2023-10-16T09:23:06.652+07:00  INFO 21712 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-16T09:23:06.659+07:00  INFO 21712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-16T09:23:06.662+07:00  INFO 21712 --- [restartedMain] udySpaceLoginRegistrationDemoApplication : Started JudySpaceLoginRegistrationDemoApplication in 1.332 seconds (process running for 230.261)
+2023-10-16T09:23:06.664+07:00  INFO 21712 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-16T09:32:01.390+07:00  INFO 21712 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T09:32:01.392+07:00  INFO 21712 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2023-10-16T09:32:01.396+07:00  INFO 21712 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
