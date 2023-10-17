@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
@@ -20,10 +23,13 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public void register(
+    public ResponseEntity<Map<String, String>> register(
             @RequestBody RegisterRequest request
     ) throws Exception {
         authenticationService.register(request);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("succcessfulRegisttration", "The registration has been successful, please go to your Gmail to activate your account within an hour");
+        return ResponseEntity.ok(map);
     }
 
     @PostMapping("/authenticate")

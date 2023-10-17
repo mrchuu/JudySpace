@@ -9,19 +9,11 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.r
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.RoleRepository;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.UserRepository;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis.JwtService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.persistence.EntityExistsException;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
-
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -30,11 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
+import java.time.ZonedDateTime;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -83,7 +73,8 @@ public class AuthenticationService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(auth);
-
+        user.setLastVisit(ZonedDateTime.now());
+        userRepository.save(user);
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()

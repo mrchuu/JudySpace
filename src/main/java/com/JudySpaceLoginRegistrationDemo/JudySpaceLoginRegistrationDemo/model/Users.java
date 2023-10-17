@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.List;
 @Builder
@@ -34,7 +35,7 @@ public class Users implements UserDetails {
     @Column(name = "is_banned")
     private boolean isBanned;
     @Column(name = "last_visit")
-    private Instant lastVisit;
+    private ZonedDateTime lastVisit;
     @Column(name = "avatar_link")
     private String avatarLink;
     @Column(name = "provider_id")
