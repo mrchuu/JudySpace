@@ -26,7 +26,8 @@ public class UserController {
 
     @GetMapping("getAll")
     public ResponseEntity<List<Users>> getAllUser() {
-        return ResponseEntity.ok(userService.getAllUsers());
+        throw new RuntimeException("aaaaaaaaaaaaaa");
+//        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("testingSecurity")
