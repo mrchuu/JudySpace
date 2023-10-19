@@ -2,14 +2,18 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.contro
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.dto.AuthenticationResponse;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.AuthenticationRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.ChangePasswordRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.RegisterRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.AuthenticationService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -24,6 +28,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(
+            @Valid
             @RequestBody RegisterRequest request
     ) throws Exception {
         authenticationService.register(request);
@@ -34,6 +39,7 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public AuthenticationResponse authenticate(
+            @Valid
             @RequestBody AuthenticationRequest request
     ) {
         AuthenticationResponse response = authenticationService.authenticate(request);
@@ -66,6 +72,23 @@ public class AuthenticationController {
     public String handleCommonException(EntityExistsException e) {
         // Trả về message của lỗi đầu tiên
         String errorMessage = "Invalid Request: " + e.getMessage();
+        return errorMessage;
+    }
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
+    public ResponseEntity<Map<String, String>> handleCommonException(BadCredentialsException e) {
+        // Trả về message của lỗi đầu tiên
+        Map<String, String> map = new HashMap<>();
+        map.put("Invalid Request: ", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    }
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
+    public String handleInputValidationException(BindException e) {
+        String errorMessage = "InvaLid Request: ";
+        if (e.getBindingResult().hasErrors()) {
+            errorMessage += e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        }
         return errorMessage;
     }
 

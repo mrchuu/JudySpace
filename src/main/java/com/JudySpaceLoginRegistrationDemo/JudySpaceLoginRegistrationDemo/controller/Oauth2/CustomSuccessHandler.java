@@ -10,6 +10,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.UserServiceImpl;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis.JwtService;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis.RandomStringGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
@@ -71,9 +72,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 response.sendRedirect("http://localhost:3000/oauth2proceed/" + accessToken + "/" + refreshToken);
             } else {
                 try {
-                    byte[] array = new byte[7]; // length is bounded by 7
-                    new Random().nextBytes(array);
-                    String generatedRandomPassword = new String(array, StandardCharsets.UTF_8);
+                    RandomStringGenerator rand = new RandomStringGenerator();
+                    String generatedRandomPassword = rand.generateRandomString(7);
                     Users user = Users.builder()
                             .userName(userDetails.getAttribute("name"))
                             .email(userDetails.getAttribute("email"))

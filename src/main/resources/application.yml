@@ -42,3 +42,15 @@ spring:
           starttls:
             enable: true
           auth: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+springdoc:
+  swagger-ui:
+   enabled: true
+  api-docs:
+    title: My Api
+    description: API documentation for JudySpace
+
