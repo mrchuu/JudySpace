@@ -58,8 +58,115 @@ public class AuthenticationService {
         helper.setTo(new InternetAddress(user.getEmail()));
         helper.setSubject("Registration Confirmation");
         String verificationLink = "http://localhost:8080/api/auth/confirmRegistration/" + verificationToken;
-        helper.setText("Trời đất dung hoa\n" +
-                "<a style='text-decoration: none; color: red;' href='" + verificationLink + "'>Click here</a>", true);
+
+        helper.setText("<html>\n" +
+                " <html  lang='en'>\n" +
+                "  <head>\n" +
+                "    <meta http-equiv='Content-Type'  content='text/html charset=UTF-8' />\n" +
+                "    <title>Day 17/30</title>\n" +
+                "    <style>\n" +
+                "      body {\n" +
+
+                "        background: #e9e9e9;\n" +
+                "      }\n" +
+                "      table {\n" +
+                "        border-spacing: 0;\n" +
+                "      }\n" +
+                "      .main {\n" +
+                "        margin: 0 auto;\n" +
+                "      }\n" +
+                "      .content-header {\n" +
+                "        background: #e9e9e9;\n" +
+                "      }\n" +
+                "      .content-margin {\n" +
+                "        padding: 20px 50px;\n" +
+                "      }\n" +
+                "      .content {\n" +
+                "        width: 90%;\n" +
+                "        margin: 0 auto;\n" +
+                "      }\n" +
+                "      .content-body {\n" +
+                "        background: white;\n" +
+                "        border-top: 8px solid #00b0f3;\n" +
+                "        border-radius: 5px 5px 0 0;\n" +
+                "      }\n" +
+                "      .content-footer {\n" +
+                "        padding: 20px;\n" +
+                "        background: black;\n" +
+                "        border-radius: 0 0 5px 5px;\n" +
+                "      }\n" +
+                "      h1 {\n" +
+                "        font-size: 27px;\n" +
+                "      }\n" +
+                "      .button-container {\n" +
+                "        text-align: center;\n" +
+                "      }\n" +
+                "      .button {\n" +
+                "        background-color: #00b0f3;\n" +
+                "        padding: 15px 32px;\n" +
+                "        text-decoration: none;\n" +
+                "        display: inline-block;\n" +
+                "        border-radius: 5px;\n" +
+                "        color: white;\n" +
+                "        font-weight: 500;\n" +
+                "      }\n" +
+                "      .center {\n" +
+                "        text-align: center;\n" +
+                "      }\n" +
+                "      a {\n" +
+                "        color: black;\n" +
+                "        text-decoration: none;\n" +
+                "      }\n" +
+                "      .copyright {\n" +
+                "        background: #e9e9e9;\n" +
+                "        font-size: 11px;\n" +
+                "        color: grey;\n" +
+                "        line-height: 5px;\n" +
+                "      }\n" +
+                "    </style>\n" +
+                "  </head>\n" +
+                "  <body>\n" +
+                "    <body>\n" +
+                "      <table role='presentation' class='main'>\n" +
+                "        <tr>\n" +
+                "          <td>\n" +
+                "            <table role='presentation' class='content'>\n" +
+                "              <tr>\n" +
+                "                <td class='content-body content-margin'>\n" +
+                "                  <table role='presentation'>\n" +
+                "                    <h1>Bạn được mời đến JudySpace!</h1>\n" +
+                "                    <p>Hi there,</p>\n" +
+                "                    <p>\n" +
+                "                      Chào mừng bạn đến với JudySpaceee \uD83E\uDD1E\uD83D\uDE22\uD83E\uDD14, bấm vào link bên\n" +
+                "                      dưới để kích hoạt tài khoản của bạn.\n" +
+                "                    </p>\n" +
+                "                    <p class='button-container'>\n" +
+                "                      <a href='" +verificationLink+
+                "                    ' class='button'>Kích Hoạt Tài Khoản</a>\n" +
+                "                    </p>\n" +
+                "                    <p>Rất vui khi gặp bạn,<br />judy</p>\n" +
+                "                  </table>\n" +
+                "                </td>\n" +
+                "              </tr>\n" +
+                "\n" +
+                "              <tr>\n" +
+                "                <td class='copyright'>\n" +
+                "                  <table role='presentation'>\n" +
+                "                    <tr>\n" +
+                "                      <td>\n" +
+                "                        <p>&copy; JudySpace from Waozuoq<br /></p>\n" +
+                "                      </td>\n" +
+                "                    </tr>\n" +
+                "                  </table>\n" +
+                "                </td>\n" +
+                "              </tr>\n" +
+                "            </table>\n" +
+                "          </td>\n" +
+                "        </tr>\n" +
+                "      </table>\n" +
+                "    </body>\n" +
+                "  </body>\n" +
+                "</html>\n\n", true);
         mailSender.send(message);
     }
 

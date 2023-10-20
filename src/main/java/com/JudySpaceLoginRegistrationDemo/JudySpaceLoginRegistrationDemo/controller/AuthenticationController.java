@@ -25,7 +25,6 @@ import java.util.Map;
 @CrossOrigin("http://localhost:3000")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
-
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(
             @Valid
@@ -66,6 +65,7 @@ public class AuthenticationController {
         String errorMessage = "Invalid Request: " + e.getMessage();
         return errorMessage;
     }
+
 
     @ExceptionHandler(EntityExistsException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
