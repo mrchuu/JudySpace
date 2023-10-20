@@ -69,10 +69,10 @@ public class AuthenticationController {
 
     @ExceptionHandler(EntityExistsException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public String handleCommonException(EntityExistsException e) {
-        // Trả về message của lỗi đầu tiên
-        String errorMessage = "Invalid Request: " + e.getMessage();
-        return errorMessage;
+    public ResponseEntity<Map<String, String>> handleCommonException(EntityExistsException e) {
+        Map<String, String> map = new HashMap<>();
+        map.put("Invalid Request: ", e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     }
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400

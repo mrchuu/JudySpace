@@ -87,13 +87,13 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                     userService.saveNewUser(user);
                     String verificationToken = jwtService.generateVerificationToken(user);
                     MimeMessage message = mailSender.createMimeMessage();
-                    MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
-                    message.setFrom(new InternetAddress("chuquyson123@gmail.com"));
-                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+                    MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+                    helper.setFrom(new InternetAddress("chuquyson123@gmail.com"));
+                    helper.setTo(new InternetAddress(user.getEmail()));
                     message.setSubject("Registration Confirmation");
                     String verificationLink = "http://localhost:8080/api/auth/confirmRegistration/" + verificationToken;
-                    message.setContent("Please click the link below to confirm your registration\n" +
-                            "<a style='text-decoration: none; color: red;' href='" + verificationLink + "'>Click here</a>", "text/html");
+                    helper.setText("Trời đất dung hoa\n" +
+                            "<a style='text-decoration: none; color: red;' href='" + verificationLink + "'>Click here</a>", true);
                     mailSender.send(message);
                     //response
                 } catch (Exception e) {

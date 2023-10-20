@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.time.ZonedDateTime;
 
 
@@ -52,20 +53,20 @@ public class AuthenticationService {
         userService.saveNewUser(user);
         String verificationToken = jwtService.generateVerificationToken(user);
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
-        message.setFrom(new InternetAddress("chuquyson123@gmail.com"));
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-        message.setSubject("Registration Confirmation");
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+        helper.setFrom(new InternetAddress("chuquyson123@gmail.com"));
+        helper.setTo(new InternetAddress(user.getEmail()));
+        helper.setSubject("Registration Confirmation");
         String verificationLink = "http://localhost:8080/api/auth/confirmRegistration/" + verificationToken;
-        message.setContent("Please click the link below to confirm your registration\n" +
-                "<a style='text-decoration: none; color: red;' href='" + verificationLink + "'>Click here</a>", "text/html");
+        helper.setText("Trời đất dung hoa\n" +
+                "<a style='text-decoration: none; color: red;' href='" + verificationLink + "'>Click here</a>", true);
         mailSender.send(message);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        System.out.println(request.getEmail()+ " "+request.getPassword());
+        System.out.println(request.getEmail() + " " + request.getPassword());
         Users user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("The email was not found, consider signing up "));
-        System.out.println(user.getUsername()+"  "+user.getPassword());
+        System.out.println(user.getUsername() + "  " + user.getPassword());
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
