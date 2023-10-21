@@ -41,47 +41,40 @@ public class UserController {
         Map<String, String> map = new HashMap<>();
         map.put("userName", auth.getName());
         return ResponseEntity.ok(map);
-//        return ResponseEntity.ok()
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .body(auth.getName());
     }
 
     @PostMapping("changePassword")
     public ResponseEntity<ResponseMessage> changePassword(@Validated(ChangePasswordRequest.changePassword.class)
                                                           @RequestBody ChangePasswordRequest request) throws UserPrincipalNotFoundException {
-        ResponseMessage rm = new ResponseMessage("SuccessfulMessage", userService.changePassword(request));
+        ResponseMessage rm = new ResponseMessage("Thành công", userService.changePassword(request));
         return ResponseEntity.ok(rm);
     }
 
     @PostMapping("resetPassword")
-    public ResponseEntity<Map<String, String>> resetPassword(@Validated(ChangePasswordRequest.resetPassword.class)
-                                                             @RequestBody ChangePasswordRequest request) throws Exception {
-        Map<String, String> map = new HashMap<>();
-        map.put("SuccessfulMessage", userService.resetPassword(request.getEmail()));
-        return ResponseEntity.ok(map);
+    public ResponseEntity<ResponseMessage> resetPassword(@Validated(ChangePasswordRequest.resetPassword.class)
+                                                         @RequestBody ChangePasswordRequest request) throws Exception {
+        ResponseMessage rm = new ResponseMessage("Thành công", userService.resetPassword(request.getEmail()));
+        return ResponseEntity.ok(rm);
     }
 
     @ExceptionHandler(UserPrincipalNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
-    public ResponseEntity<Map<String, String>> handleInvalidUserInfo(UserPrincipalNotFoundException e) {
-        Map<String, String> map = new HashMap<>();
-        map.put(HttpStatus.NOT_FOUND.toString() + " Invalid Request", e.getName());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<ResponseMessage> handleInvalidUserInfo(UserPrincipalNotFoundException e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getName());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(rm);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
-    public String handleEmailNotFoundException(UsernameNotFoundException e) {
-        return "Invalid Request: " + e.getMessage();
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<ResponseMessage> handleEmailNotFoundException(UsernameNotFoundException e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(rm);
     }
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public String handleInputValidationException(BindException e) {
-        String errorMessage = "InvaLid Request: ";
-        if (e.getBindingResult().hasErrors()) {
-            errorMessage += e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-        }
-        return errorMessage;
+    public ResponseEntity<ResponseMessage> handleInputValidationException(BindException e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(rm);
     }
 }

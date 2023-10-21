@@ -39,7 +39,7 @@ public class AuthenticationService {
     private final UserDetailsService userDetailsService;
     private JavaMailSender mailSender;
 
-    public void register(RegisterRequest request) throws Exception {
+    public String register(RegisterRequest request) throws Exception {
         Users user = Users.builder()
                 .userName(request.getUserName())
                 .email(request.getEmail())
@@ -168,18 +168,26 @@ public class AuthenticationService {
                 "  </body>\n" +
                 "</html>\n\n", true);
         mailSender.send(message);
+        return "Đăng kí thành công, kiểm tra mail đến hoặc mail rác và kích hoạt tài khoản trong vòng 1 giờ";
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println(request.getEmail() + " " + request.getPassword());
-        Users user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("The email was not found, consider signing up "));
-        System.out.println(user.getUsername() + "  " + user.getPassword());
-        Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        user.getUsername(),
-                        request.getPassword()
-                )
-        );
+        Users user = userRepository.findByEmail(request.getEmail()).orElse(null);
+        if(user == null){
+            throw new UsernameNotFoundException("Không tìm thấy tài khoản");
+        }
+        Authentication auth = null;
+        try{
+            auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            user.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        }catch (BadCredentialsException e){
+            throw new BadCredentialsException("Email và mật khẩu không trùng khớp");
+        }
         SecurityContextHolder.getContext().setAuthentication(auth);
         user.setLastVisit(ZonedDateTime.now());
         userRepository.save(user);

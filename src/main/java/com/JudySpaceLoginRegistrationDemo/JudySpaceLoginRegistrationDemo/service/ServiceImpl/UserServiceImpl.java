@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users saveNewUser(Users users) {
         if (userRepository.findByEmailNotOptional(users.getEmail()) != null) {
-            throw new EntityExistsException("The email has been registered");
+            throw new EntityExistsException("Email đã được đăng kí");
         }
         userRepository.save(users);
         return users;
@@ -53,14 +53,14 @@ public class UserServiceImpl implements UserService {
     public String enableUser(String username) {
         Users existedUser = userRepository.findByUserName(username).orElse(null);
         if (existedUser == null) {
-            throw new UsernameNotFoundException("The user with the given Email was not found");
+            throw new UsernameNotFoundException("Không tìm thấy Email");
         }
         if (existedUser.isEnabled()) {
-            throw new EntityExistsException("The account has already been enabled");
+            throw new EntityExistsException("Tài khoản đã được kích hoạt");
         }
         existedUser.setEnabled(true);
         userRepository.save(existedUser);
-        return "Your account has been successfully verified";
+        return "Tài khoản của bạn đã được kích hoạt thành công";
     }
 
     @Override
@@ -68,22 +68,22 @@ public class UserServiceImpl implements UserService {
         String email = request.getEmail();
         Users users = userRepository.findByEmail(email).orElse(null);
         if (users == null) {
-            throw new UserPrincipalNotFoundException("The user with the given Email was not found");
+            throw new UserPrincipalNotFoundException("Không tìm thấy Email");
         }
 
         if (!passwordEncoder.matches(request.getOldPassword(), users.getPassword())) {
-            throw new UserPrincipalNotFoundException("The given email and password did not match");
+            throw new UserPrincipalNotFoundException("Email và mật khẩu không trùng khớp");
         }
         users.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(users);
-        return "Password changed successfully!";
+        return "Đổi mật khẩu thành công";
     }
 
     @Override
     public String resetPassword(String email) throws Exception {
         Users users = userRepository.findByEmail(email).orElse(null);
         if (users == null) {
-            throw new UserPrincipalNotFoundException("The user with the given Email was not found");
+            throw new UserPrincipalNotFoundException("Không tìm thấy Email");
         }
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
         String generatedRandomPassword = randomStringGenerator.generateRandomString(7);
@@ -93,8 +93,8 @@ public class UserServiceImpl implements UserService {
             MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
             message.setFrom(new InternetAddress("chuquyson123@gmail.com"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(users.getEmail()));
-            message.setSubject("Reset Password");
-            message.setContent("Your password has been reset to: " + generatedRandomPassword + ", you can go to change password to change your password to your liking", "text/html");
+            message.setSubject("Reset Mật khẩu");
+            message.setContent("Mật khẩu của bạn đã được reset về: " + generatedRandomPassword + ", ", "text/html");
             mailSender.send(message);
             userRepository.save(users);
             return "Mật khẩu đã được reset thành công, kiểm tra mail thư mục mail đến hoặc mail rác để nhận mật khẩu mới";

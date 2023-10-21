@@ -27,14 +27,12 @@ import java.util.Map;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(
+    public ResponseEntity<ResponseMessage> register(
             @Valid
             @RequestBody RegisterRequest request
     ) throws Exception {
-        authenticationService.register(request);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("succcessfulRegisttration", "The registration has been successful, please go to your Gmail to activate your account within an hour");
-        return ResponseEntity.ok(map);
+        ResponseMessage rm = new ResponseMessage("Đăng kí thành công", authenticationService.register(request));
+        return ResponseEntity.ok(rm);
     }
 
     @PostMapping("/authenticate")
@@ -43,13 +41,13 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request
     ) {
         AuthenticationResponse response = authenticationService.authenticate(request);
-        System.out.println(response.getAccessToken() + "\n" + response.getRefreshToken());
         return response;
     }
 
     @GetMapping("/confirmRegistration/{verificationToken}")
-    public String confirmRegistration(@PathVariable("verificationToken") String verificationToken) throws Exception {
-        return authenticationService.confirmRegistration(verificationToken);
+    public ResponseEntity<ResponseMessage> confirmRegistration(@PathVariable("verificationToken") String verificationToken) throws Exception {
+        ResponseMessage rm = new ResponseMessage("Kích hoạt tài khoản thành công", authenticationService.confirmRegistration(verificationToken));
+        return ResponseEntity.ok(rm);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -62,34 +60,28 @@ public class AuthenticationController {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
-    public String handleCommonException(Exception e) {
-        String errorMessage = "Invalid Request: " + e.getMessage();
-        return errorMessage;
+    public ResponseEntity<ResponseMessage> handleCommonException(Exception e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getMessage());
+        return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT.value()).body(rm);
     }
 
-
     @ExceptionHandler(EntityExistsException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public ResponseEntity<Map<String, String>> handleCommonException(EntityExistsException e) {
-        Map<String, String> map = new HashMap<>();
-        map.put("Invalid Request: ", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ResponseMessage> handleCommonException(EntityExistsException e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(rm);
     }
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
-    public ResponseEntity<Map<String, String>> handleCommonException(BadCredentialsException e) {
-        Map<String, String> map = new HashMap<>();
-        map.put("Invalid Request", e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    public ResponseEntity<ResponseMessage> handleCommonException(BadCredentialsException e) {
+        ResponseMessage rm = new ResponseMessage("Không tìm thấy", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(rm);
     }
     @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public String handleInputValidationException(BindException e) {
-        String errorMessage = "InvaLid Request: ";
-        if (e.getBindingResult().hasErrors()) {
-            errorMessage += e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-        }
-        return errorMessage;
+    public ResponseEntity<ResponseMessage> handleInputValidationException(BindException e) {
+        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(rm);
     }
 
 }
