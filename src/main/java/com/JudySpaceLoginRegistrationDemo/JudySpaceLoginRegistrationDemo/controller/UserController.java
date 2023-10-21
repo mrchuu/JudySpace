@@ -2,6 +2,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.contro
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.ChangePasswordRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ResponseMessage;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityExistsException;
@@ -46,31 +47,34 @@ public class UserController {
     }
 
     @PostMapping("changePassword")
-    public ResponseEntity<Map<String, String>> changePassword(@Validated(ChangePasswordRequest.changePassword.class)
-                                                                  @RequestBody ChangePasswordRequest request) throws UserPrincipalNotFoundException {
-        Map<String, String> map = new HashMap<>();
-        map.put("SuccessfulMessage", userService.changePassword(request));
-        return ResponseEntity.ok(map);
+    public ResponseEntity<ResponseMessage> changePassword(@Validated(ChangePasswordRequest.changePassword.class)
+                                                          @RequestBody ChangePasswordRequest request) throws UserPrincipalNotFoundException {
+        ResponseMessage rm = new ResponseMessage("SuccessfulMessage", userService.changePassword(request));
+        return ResponseEntity.ok(rm);
     }
+
     @PostMapping("resetPassword")
     public ResponseEntity<Map<String, String>> resetPassword(@Validated(ChangePasswordRequest.resetPassword.class)
-                                                    @RequestBody ChangePasswordRequest request) throws Exception {
+                                                             @RequestBody ChangePasswordRequest request) throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("SuccessfulMessage", userService.resetPassword(request.getEmail()));
         return ResponseEntity.ok(map);
     }
+
     @ExceptionHandler(UserPrincipalNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
     public ResponseEntity<Map<String, String>> handleInvalidUserInfo(UserPrincipalNotFoundException e) {
         Map<String, String> map = new HashMap<>();
-        map.put(HttpStatus.NOT_FOUND.toString()+" Invalid Request", e.getName());
+        map.put(HttpStatus.NOT_FOUND.toString() + " Invalid Request", e.getName());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     }
+
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
     public String handleEmailNotFoundException(UsernameNotFoundException e) {
         return "Invalid Request: " + e.getMessage();
     }
+
     @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
     public String handleInputValidationException(BindException e) {

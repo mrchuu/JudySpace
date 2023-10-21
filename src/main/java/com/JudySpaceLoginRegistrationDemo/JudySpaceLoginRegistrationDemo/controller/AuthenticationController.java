@@ -4,6 +4,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.d
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.AuthenticationRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.ChangePasswordRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.RegisterRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ResponseMessage;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.AuthenticationService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,10 +54,10 @@ public class AuthenticationController {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public String handleCommonException(UsernameNotFoundException e) {
+    public ResponseEntity<ResponseMessage> handleCommonException(UsernameNotFoundException e) {
         // Trả về message của lỗi đầu tiên
-        String errorMessage = "Invalid Request: " + e.getMessage();
-        return errorMessage;
+        ResponseMessage rm = new ResponseMessage("Bad Credentials", e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(rm);
     }
 
     @ExceptionHandler(Exception.class)
@@ -77,9 +78,8 @@ public class AuthenticationController {
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)// Nếu validate fail thì trả về 400
     public ResponseEntity<Map<String, String>> handleCommonException(BadCredentialsException e) {
-        // Trả về message của lỗi đầu tiên
         Map<String, String> map = new HashMap<>();
-        map.put("Invalid Request: ", e.getMessage());
+        map.put("Invalid Request", e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     }
     @ExceptionHandler(BindException.class)
