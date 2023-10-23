@@ -14,7 +14,6 @@ import lombok.Setter;
 @Setter
 public class ChangePasswordRequest {
     @NotNull(groups = {changePassword.class, resetPassword.class}, message = "Invalid Email")
-    @Pattern(groups = {changePassword.class, resetPassword.class}, regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid Email")
     private String email;
     @NotNull(groups = {changePassword.class}, message = "Old Password must be specified when changing password")
     @Null(groups = {resetPassword.class}, message = "Unnecessary data")

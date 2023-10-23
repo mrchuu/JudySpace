@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
     public String changePassword(ChangePasswordRequest request) throws UserPrincipalNotFoundException {
         String email = request.getEmail();
         Users users = userRepository.findByEmail(email).orElse(null);
+
         if (users == null) {
             throw new UserPrincipalNotFoundException("Không tìm thấy Email");
         }
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(request.getOldPassword(), users.getPassword())) {
             throw new UserPrincipalNotFoundException("Email và mật khẩu không trùng khớp");
         }
+
         users.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(users);
         return "Đổi mật khẩu thành công";
