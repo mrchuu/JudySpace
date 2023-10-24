@@ -3,5 +3,139 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet author="chuson" id="addBannedDate">
+        <sql>
+            ALTER TABLE public.Users ADD COLUMN banned_date timestamptz
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="createBlog1">
+        <sql>
+            CREATE TABLE public.Blog (
+            blog_id serial,
+            title varchar NOT NULL,
+            blog_thumbnail varchar NOT NULL,
+            is_blog boolean NULL DEFAULT false,
+            is_book boolean NULL DEFAULT false,
+            is_movie boolean NULL DEFAULT false,
+            create_date timestamptz NULL DEFAULT current_timestamp,
+            is_deleted boolean NULL,
+            deleted_date timestamptz NULL,
+            update_date timestamptz NULL,
+            CONSTRAINT blog_pk PRIMARY KEY (blog_id)
+            );
 
+            -- Column comments
+
+            COMMENT ON COLUMN public.blog.blog_id IS 'containing blogs about some random things, movie, or book';
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="createParagraph">
+        <sql>
+            CREATE TABLE IF NOT EXISTS public.paragraph (
+            paragraph_id serial NOT NULL,
+            paragraph_content text NULL,
+            blog_id int NULL,
+            create_date timestamptz NULL DEFAULT current_timestamp,
+            is_delete boolean NULL DEFAULT false,
+            delete_date timestamptz NULL,
+            update_date timestamptz NULL,
+            CONSTRAINT paragraphql_pk PRIMARY KEY (paragraph_id),
+            CONSTRAINT paragraph_fk FOREIGN KEY (blog_id) REFERENCES public.blog(blog_id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="createParagraph_image1">
+        <sql>
+
+            CREATE TABLE IF NOT EXISTS public.paragraph_image (
+            image_id serial NOT NULL,
+            image_link varchar NULL,
+            paragraph_id int NULL,
+            created_date timetz NULL DEFAULT current_timestamp,
+            is_deleted boolean NULL DEFAULT false,
+            deleted_date timestamptz NULL,
+            update_date timestamptz NULL,
+            CONSTRAINT paragraph_image_pk PRIMARY KEY (image_id),
+            CONSTRAINT paragraph_image_fk FOREIGN KEY (paragraph_id) REFERENCES public.paragraph(paragraph_id)
+            );
+
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="createComment">
+        <sql>
+            CREATE TABLE public."comment" (
+            user_id int NULL,
+            "content" text NULL,
+            create_date timestamptz NULL DEFAULT current_timestamp,
+            is_root boolean NULL DEFAULT true,
+            blog_id int NULL,
+            comment_rep_id int NULL,
+            id serial,
+            is_delete boolean NULL DEFAULT false,
+            delete_date timestamptz NULL,
+            update_date timestamptz NULL,
+            CONSTRAINT comment_pk PRIMARY KEY (id),
+            CONSTRAINT comment_fk FOREIGN KEY (user_id) REFERENCES public.users(user_id),
+            CONSTRAINT comment_fk_1 FOREIGN KEY (blog_id) REFERENCES public.blog(blog_id)
+            );
+
+            -- Column comments
+
+            COMMENT ON COLUMN public."comment".blog_id IS 'if the comment is root, then it is a comment to a blog';
+            COMMENT ON COLUMN public."comment".comment_rep_id IS 'if is not a root, then it is a reply to another
+            comment';
+
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="addCommentToCommentForeignKey">
+        <sql>
+            ALTER TABLE public.Comment ADD CONSTRAINT fk_reply_to FOREIGN KEY (comment_rep_id) references Comment(id)
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="addBlogUpvote">
+        <sql>
+            CREATE TABLE IF NOT EXISTS public.blog_upvote (
+            blog_id serial4 NOT NULL,
+            user_id serial4 NOT NULL,
+            create_date timestamptz NULL DEFAULT CURRENT_TIMESTAMP,
+            CONSTRAINT blog_upvote_pk PRIMARY KEY (blog_id, user_id)
+            );
+
+
+            -- public.blog_upvote foreign keys
+
+            ALTER TABLE public.blog_upvote ADD CONSTRAINT blog_upvote_fk FOREIGN KEY (blog_id) REFERENCES
+            public.blog(blog_id);
+            ALTER TABLE public.blog_upvote ADD CONSTRAINT blog_upvote_fk_1 FOREIGN KEY (user_id) REFERENCES
+            public.users(user_id);
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="changeCommentIdName">
+        <sql>
+            ALTER TABLE public."comment" RENAME COLUMN id TO comment_id;
+        </sql>
+    </changeSet>
+    <changeSet author="chuson" id="addCommentUpvote">
+        <sql>
+            -- public.comment_upvote definition
+
+            -- Drop table
+
+            -- DROP TABLE public.comment_upvote;
+
+            CREATE TABLE IF NOT EXISTS public.comment_upvote (
+            user_id int4 NOT NULL,
+            comment_id int4 NOT NULL,
+            create_date timestamptz NULL DEFAULT CURRENT_TIMESTAMP
+            );
+
+
+            -- public.comment_upvote foreign keys
+
+            ALTER TABLE public.comment_upvote ADD CONSTRAINT comment_upvote_fk FOREIGN KEY (comment_id) REFERENCES
+            public."comment"(comment_id);
+            ALTER TABLE public.comment_upvote ADD CONSTRAINT comment_upvote_fk_1 FOREIGN KEY (user_id) REFERENCES
+            public.users(user_id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
