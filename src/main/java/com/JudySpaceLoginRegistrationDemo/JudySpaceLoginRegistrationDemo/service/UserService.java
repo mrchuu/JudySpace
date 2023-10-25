@@ -2,6 +2,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.servic
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.ChangePasswordRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.UserDTO;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface UserService {
 
     public Users saveNewUser(Users users);
 
-    public List<Users> getAllUsers();
+    public List<UserDTO> getAllUsers();
 
     String enableUser(String username);
 

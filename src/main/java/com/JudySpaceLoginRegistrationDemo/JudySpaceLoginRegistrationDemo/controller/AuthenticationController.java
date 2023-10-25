@@ -2,12 +2,10 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.contro
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.dto.AuthenticationResponse;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.AuthenticationRequest;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.ChangePasswordRequest;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.RegisterRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.UserRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ResponseMessage;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.AuthenticationService;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.AuthenticationServiceImpl;
 import jakarta.persistence.EntityExistsException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,19 +15,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 @CrossOrigin("http://localhost:3000")
 public class AuthenticationController {
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> register(
             @Valid
-            @RequestBody RegisterRequest request
+            @RequestBody UserRequest request
     ) throws Exception {
         ResponseMessage rm = new ResponseMessage("Đăng kí thành công", authenticationService.register(request));
         return ResponseEntity.ok(rm);

@@ -1,15 +1,14 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Provider;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Role;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.dto.AuthenticationResponse;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.AuthenticationRequest;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.RegisterRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.UserRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.RoleRepository;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.UserRepository;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.AuthenticationService;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis.JwtService;
-import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ import java.time.ZonedDateTime;
 
 @Service
 @AllArgsConstructor
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserServiceImpl userService;
@@ -39,7 +38,8 @@ public class AuthenticationService {
     private final UserDetailsService userDetailsService;
     private JavaMailSender mailSender;
 
-    public String register(RegisterRequest request) throws Exception {
+    @Override
+    public String register(UserRequest request) throws Exception {
         Users user = Users.builder()
                 .userName(request.getUserName())
                 .email(request.getEmail())
@@ -141,7 +141,7 @@ public class AuthenticationService {
                 "                      dưới để kích hoạt tài khoản của bạn.\n" +
                 "                    </p>\n" +
                 "                    <p class='button-container'>\n" +
-                "                      <a href='" +verificationLink+
+                "                      <a href='" + verificationLink +
                 "                    ' class='button'>Kích Hoạt Tài Khoản</a>\n" +
                 "                    </p>\n" +
                 "                    <p>Rất vui khi gặp bạn,<br />judy</p>\n" +
@@ -171,21 +171,22 @@ public class AuthenticationService {
         return "Đăng kí thành công, kiểm tra mail đến hoặc mail rác và kích hoạt tài khoản trong vòng 1 giờ";
     }
 
+    @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println(request.getEmail() + " " + request.getPassword());
         Users user = userRepository.findByEmail(request.getEmail()).orElse(null);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Không tìm thấy tài khoản");
         }
         Authentication auth = null;
-        try{
+        try {
             auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             user.getUsername(),
                             request.getPassword()
                     )
             );
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Email và mật khẩu không trùng khớp");
         }
         SecurityContextHolder.getContext().setAuthentication(auth);
@@ -199,6 +200,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    @Override
     public String confirmRegistration(
             String verificationToken) throws Exception {
         String message = "";

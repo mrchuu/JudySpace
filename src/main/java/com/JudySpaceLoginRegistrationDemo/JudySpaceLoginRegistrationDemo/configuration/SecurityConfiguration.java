@@ -42,8 +42,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/testingSecurity",
                                 "/api/auth/authenticate",
-                                "/api/auth/register",
-                                "").permitAll()
+                                "/api/auth/register").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(customizer -> customizer

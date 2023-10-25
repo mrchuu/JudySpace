@@ -1,5 +1,6 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +12,8 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
 @Builder
 @Getter
 @Setter
@@ -42,6 +45,13 @@ public class Users implements UserDetails {
     private String providerId;
     @Column(name = "is_enabled")
     private boolean isEnabled;
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    Set<BlogUpvote> upvotedBlogs;
+    @OneToMany(mappedBy = "poster", orphanRemoval = true)
+    @JsonIgnoreProperties("poster")
+    Set<Comment> postedComments;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getRoleName()));
@@ -76,7 +86,6 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return this.isEnabled;
     }
-
 
 
 }

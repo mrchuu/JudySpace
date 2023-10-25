@@ -3,4 +3,26 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="addBlogCategory" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.blog_category (
+            id serial NOT NULL,
+            "name" varchar NULL,
+            CONSTRAINT blog_category_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="deleteColumnsAndAddReferences" author="chuson">
+        <sql>
+            ALTER TABLE public.blog DROP COLUMN is_blog;
+            ALTER TABLE public.blog DROP COLUMN is_book;
+            ALTER TABLE public.blog DROP COLUMN is_movie;
+            ALTER TABLE public.blog ADD category_id int NOT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="addForeignkeyToCategory" author="chuson">
+        <sql>
+            alter table blog add constraint "fk_blog_category" foreign key (category_id) references blog_category(id)
+        </sql>
+    </changeSet>
 </databaseChangeLog>
