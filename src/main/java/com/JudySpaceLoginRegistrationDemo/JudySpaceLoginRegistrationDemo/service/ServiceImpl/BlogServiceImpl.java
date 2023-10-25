@@ -9,6 +9,8 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.reposit
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.BlogService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +28,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<BlogDTO> getBlogsPaginated(BlogPageRequest blogPageRequest) {
-        return null;
+        Pageable pageable = PageRequest.of(blogPageRequest.getPageIndex(), blogPageRequest.getPageSize());
+        return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(),pageable).map(blogMapper::toDtoWithCustomInfo);
     }
 
 }

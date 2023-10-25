@@ -25,4 +25,27 @@
             alter table blog add constraint "fk_blog_category" foreign key (category_id) references blog_category(id)
         </sql>
     </changeSet>
+    <changeSet id="addTableBlogTag" author="chuson">
+        <sql>
+            Create table if not exists BlogTag(
+            id serial NOT NULL,
+            "name" varchar NULL,
+            CONSTRAINT blog_tag_pk PRIMARY KEY (id)
+            );
+
+        </sql>
+    </changeSet>
+    <changeSet id="addBlogTagFk" author="chuson">
+        <sql>
+            ALTER TABLE blog ADD COLUMN tag_id INT REFERENCES BlogTag(id);
+        </sql>
+    </changeSet>
+    <changeSet id="addBlogColumns" author="chuson">
+        <sql>
+            ALTER TABLE public.blogtag ADD create_date timestamptz NULL DEFAULT current_timestamp;
+            ALTER TABLE public.blogtag ADD is_delete boolean NULL DEFAULT false;
+            ALTER TABLE public.blogtag ADD delete_date timestamptz NULL;
+            ALTER TABLE public.blogtag ADD updated_date timestamptz NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

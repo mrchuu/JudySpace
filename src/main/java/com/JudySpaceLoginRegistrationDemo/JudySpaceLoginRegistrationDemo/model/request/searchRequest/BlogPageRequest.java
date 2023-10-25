@@ -5,15 +5,16 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 public class BlogPageRequest extends SearchRequest{
     private String searchName;
-    private int categoryId;
     private String sortType;
+    private Integer tagId;
 
-    public BlogPageRequest(int pageIndex, int pageSize, String searchName, int categoryId, String sortType) {
+    public BlogPageRequest(int pageIndex, int pageSize, String searchName, String sortType, Integer tagId) {
         super(pageIndex, pageSize);
         this.searchName = searchName;
-        this.categoryId = categoryId;
         this.sortType = sortType;
+        this.tagId = tagId;
     }
 }

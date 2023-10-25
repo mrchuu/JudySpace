@@ -45,4 +45,8 @@ public class Blog {
     @OneToMany(mappedBy = "blogRepliedTo", orphanRemoval = true)
     @JsonIgnoreProperties("blogRepliedTo")
     private Set<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    @JsonIgnoreProperties("blogs")
+    private BlogTag blogTag;
 }

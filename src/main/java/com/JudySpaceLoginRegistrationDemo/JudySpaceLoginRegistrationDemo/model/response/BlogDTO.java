@@ -1,8 +1,5 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response;
 
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +15,9 @@ public class BlogDTO {
     private String blogThumbnail;
     private Instant createDate;
     private BlogCategoryDTO blogCategory;
-//    private Set<BlogUpvoteDTO> upvotedUsers;
-//    private Set<CommentDTO> comments;
+    private Set<BlogUpvoteDTO> upvotedUsers;
+    private Set<CommentDTO> comments;
     private Integer upvoteUserSetSize;
     private Integer commentSetSize;
-
+    private BlogTagDTO blogTag;
 }

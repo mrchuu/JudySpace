@@ -47,4 +47,23 @@ public class Comment {
     private Instant deleteDate;
     @Column(name = "updateDate")
     private Instant updateDate;
+    public Integer getNumberOfChild(Comment root) {
+        return getNumberOfChildRecursive(root, 1);
+    }
+
+    private Integer getNumberOfChildRecursive(Comment comment, int sum) {
+        if (comment == null) {
+            return sum;
+        }
+
+        Set<Comment> childComments = comment.getChildComments();
+        sum += childComments.size();
+
+        for (Comment c : childComments) {
+            sum = getNumberOfChildRecursive(c, sum);
+        }
+
+        return sum;
+    }
+
 }

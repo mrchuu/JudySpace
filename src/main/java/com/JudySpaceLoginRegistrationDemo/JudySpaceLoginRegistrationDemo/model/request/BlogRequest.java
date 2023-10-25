@@ -1,6 +1,7 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogCategory;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogTag;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogUpvote;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -25,7 +26,8 @@ public class BlogRequest {
     private boolean isDeleted;
     private Instant updateDate;
     private Instant deleteDate;
-    private BlogCategoryRequest blogCategory;
+    private BlogCategory blogCategory;
+    private BlogTag blogTag;
 
     public interface AddRequest{
 
