@@ -1,6 +1,8 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.searchRequest;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -16,5 +18,12 @@ public class BlogPageRequest extends SearchRequest{
         this.searchName = searchName;
         this.sortType = sortType;
         this.tagId = tagId;
+    }
+
+    public BlogPageRequest(int pageIndex, int pageSize) {
+        super(pageIndex, pageSize);
+    }
+    public BlogPageRequest() {
+
     }
 }
