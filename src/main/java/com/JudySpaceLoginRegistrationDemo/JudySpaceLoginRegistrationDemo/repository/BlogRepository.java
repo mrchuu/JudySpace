@@ -21,7 +21,15 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             "and (:searchName is null or LOWER(b.title) like CONCAT('%', LOWER(:searchName), '%')) " +
             "and (:tagId is null or b.tag_id = :tagId) " +
             "group by c.blog_id, b.blog_id , b.title, b.blog_thumbnail , b.create_date, b.is_deleted , b.deleted_date, b.update_date, b.category_id, b.tag_id\n" +
-            "order by count(c.comment_id) desc", nativeQuery = true)
-    public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType,Pageable pageable);
+            "order by " +
+            "Case " +
+            "When :sortType = 'popularityWeek' Then count(c.comment_id) end desc, " +
+            "Case " +
+            "When :sortType = 'popular24h' Then count(c.comment_id) end desc, " +
+            "Case " +
+            "WHEN :sortType = 'latest' THEN b.create_date END DESC, " +
+            "Case " +
+            "When :sortType = 'oldest' THEN b.create_date END ASC ", nativeQuery = true)
+    public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType, Pageable pageable);
 
 }
