@@ -19,4 +19,5 @@ public class CommentDTO {
     private UserDTO poster;
     private Instant createDate;
     private String content;
+    private Integer upvoteNumber;
 }

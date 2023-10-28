@@ -51,7 +51,9 @@ public class Users implements UserDetails {
     @OneToMany(mappedBy = "poster", orphanRemoval = true)
     @JsonIgnoreProperties("poster")
     Set<Comment> postedComments;
-
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    Set<CommentUpvote> upvotedComments;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getRoleName()));

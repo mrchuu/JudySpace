@@ -47,6 +47,9 @@ public class Comment {
     private Instant deleteDate;
     @Column(name = "updateDate")
     private Instant updateDate;
+    @OneToMany(mappedBy = "comment", orphanRemoval = true)
+    @JsonIgnoreProperties("comment")
+    private Set<CommentUpvote> upvotedUsers;
     public Integer getNumberOfChild(Comment root) {
         return getNumberOfChildRecursive(root, 1);
     }

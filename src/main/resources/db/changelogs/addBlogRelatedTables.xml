@@ -48,4 +48,9 @@
             ALTER TABLE public.blogtag ADD updated_date timestamptz NULL;
         </sql>
     </changeSet>
+    <changeSet id="addCommentUpvoteMissingConstraint" author="chuson">
+        <sql>
+            ALTER TABLE public.comment_upvote ADD CONSTRAINT comment_upvote_pk PRIMARY KEY (user_id,comment_id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
