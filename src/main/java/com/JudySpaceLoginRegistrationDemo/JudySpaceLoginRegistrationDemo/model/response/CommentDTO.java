@@ -15,10 +15,11 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 public class CommentDTO {
+
     private Integer commentId;
     private UserDTO poster;
     private Instant createDate;
     private String content;
-    private Set<CommentDTO> childComments;
+    private CommentDTO parentComment;
 
 }
