@@ -11,6 +11,6 @@ public interface BlogMapper {
     @Mapping(target = "upvoteUserSetSize",
             expression = "java(b.getUpvotedUsers()!=null?b.getUpvotedUsers().size():0)")
     @Mapping(target = "commentSetSize",
-            expression = "java(b.getComments()!=null?b.getComments().stream().map(comment->comment.getNumberOfChild(comment)).mapToInt(Integer::intValue).sum():0)")
+            expression = "java(b.getComments()!=null?b.getComments().stream().filter(comment -> comment.isRoot() && !comment.isDeleted()).map(comment->comment.getNumberOfChild(comment)).mapToInt(Integer::intValue).sum():0)")
     BlogDTO toDtoWithCustomInfo(Blog b);
 }

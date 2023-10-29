@@ -15,8 +15,6 @@ public class BlogDTO {
     private String blogThumbnail;
     private Instant createDate;
     private BlogCategoryDTO blogCategory;
-    private Set<BlogUpvoteDTO> upvotedUsers;
-    private Set<CommentDTO> comments;
     private Integer upvoteUserSetSize;
     private Integer commentSetSize;
     private BlogTagDTO blogTag;

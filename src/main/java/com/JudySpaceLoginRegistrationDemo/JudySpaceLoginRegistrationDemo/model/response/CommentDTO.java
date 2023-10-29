@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +21,5 @@ public class CommentDTO {
     private UserDTO poster;
     private Instant createDate;
     private String content;
-    private CommentDTO parentComment;
-
+    private Integer upvoteNumber;
 }
