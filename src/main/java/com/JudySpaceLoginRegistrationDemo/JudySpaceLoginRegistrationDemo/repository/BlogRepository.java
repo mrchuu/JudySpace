@@ -42,7 +42,10 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             "Case " +
             "WHEN :sortType = 'latest' THEN cj.create_date end desc, " +
             "Case " +
-            "WHEN :sortType = 'oldest' then cj.create_date end asc", nativeQuery = true)
+            "WHEN :sortType = 'oldest' then cj.create_date end asc",
+            countQuery = "select count(b.blog_id) from blog b " +
+                    "where b.is_deleted = false "
+            , nativeQuery = true)
     public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType, Pageable pageable);
 
 }
