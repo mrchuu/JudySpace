@@ -10,4 +10,6 @@ import org.mapstruct.Mapping;
 public interface CommentMapper {
     @Mapping(target = "upvoteNumber", expression = "java(c.getUpvotedUsers()!=null?c.getUpvotedUsers().size():0)")
     public CommentDTO toDto(Comment c);
+
+    public Comment toE(CommentRequest request);
 }

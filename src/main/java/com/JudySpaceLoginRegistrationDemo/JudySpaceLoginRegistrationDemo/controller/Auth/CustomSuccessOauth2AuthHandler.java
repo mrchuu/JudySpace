@@ -1,4 +1,4 @@
-package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller.Oauth2;
+package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller.Auth;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Provider;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
@@ -32,7 +32,7 @@ import java.util.Map;
 
 @Component
 @AllArgsConstructor
-public class CustomSuccessHandler implements AuthenticationSuccessHandler {
+public class CustomSuccessOauth2AuthHandler implements AuthenticationSuccessHandler {
     private final UserServiceImpl userService;
     private final JwtService jwtService;
     private final UserRepository userRepository;

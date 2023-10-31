@@ -1,23 +1,18 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.configuration;
 
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller.Oauth2.CustomSuccessHandler;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller.Auth.CustomAccessDeniedHandler;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller.Auth.CustomSuccessOauth2AuthHandler;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.securityConfiguration.JwtAuthenticationFilter;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -26,12 +21,14 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
-    private final CustomSuccessHandler successHandler;
+    private final CustomSuccessOauth2AuthHandler successHandler;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
-    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider, CustomSuccessHandler successHandler) {
+    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider, CustomSuccessOauth2AuthHandler successHandler, CustomAccessDeniedHandler accessDeniedHandler) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authenticationProvider = authenticationProvider;
         this.successHandler = successHandler;
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Bean
@@ -40,17 +37,34 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/testingSecurity",
-                                "/api/auth/authenticate",
-                                "/api/auth/register").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/users/resetPassword",
+                                "/api/comment/getRootComments/{blogId}",
+                                "/api/comment/getChildComments/{commentId}",
+                                "/api/blog/getBlogsPaginated").permitAll()
+                        .requestMatchers(swaggerWhiteList).permitAll()
+                        .requestMatchers(
+                                "/api/blog/getAll"
+                        ).hasAnyAuthority("Judy")
+                        .anyRequest().authenticated()
                 )
                 .oauth2Login(customizer -> customizer
                         .successHandler(successHandler)
                 )
+                .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(handler -> handler
+                        .accessDeniedHandler(accessDeniedHandler));
         return http.build();
     }
+    private static final String[] swaggerWhiteList = {
+            "/api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yml",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
 }

@@ -8,6 +8,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/blog/")
 public class BlogController {
     private BlogService blogService;
+//    @PreAuthorize("hasAnyAuthority('ROLE_Judy')")
     @GetMapping("getAll")
     public ResponseEntity<List<BlogDTO>> getAll(){
         return ResponseEntity.ok(blogService.getAll());
