@@ -4,12 +4,10 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
-
   liquibase:
     enabled: true
     change-log: classpath:db/db.changelog-root.xml
@@ -47,10 +45,10 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-springdoc:
-  swagger-ui:
-   enabled: true
-  api-docs:
-    title: My Api
-    description: API documentation for JudySpace
+#springdoc:
+#  swagger-ui:
+#   enabled: true
+#  api-docs:
+#    title: My Api
+#    description: API documentation for JudySpace
 

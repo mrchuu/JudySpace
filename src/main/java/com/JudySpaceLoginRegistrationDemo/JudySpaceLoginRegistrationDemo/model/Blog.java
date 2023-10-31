@@ -27,7 +27,7 @@ public class Blog {
     private String title;
     @Column(name = "blog_thumbnail")
     private String blogThumbnail;
-    @Column(name = "create_date")
+    @Column(name = "create_date", insertable = false, updatable = false)
     private Instant createDate;
     @Column(name = "is_deleted")
     private boolean isDeleted;
@@ -42,7 +42,7 @@ public class Blog {
     @OneToMany(mappedBy = "blog", orphanRemoval = true)
     @JsonIgnoreProperties("blog")
     private Set<BlogUpvote> upvotedUsers;
-    @OneToMany(mappedBy = "blogRepliedTo", orphanRemoval = true)
+    @OneToMany(mappedBy = "blogRepliedTo", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("blogRepliedTo")
     private Set<Comment> comments;
     @ManyToOne

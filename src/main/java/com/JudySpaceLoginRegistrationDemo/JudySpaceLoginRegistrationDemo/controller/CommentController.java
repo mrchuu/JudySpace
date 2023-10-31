@@ -1,15 +1,14 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Comment;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.CommentRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.CommentDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,13 @@ public class CommentController {
     @PostMapping("getChildComments/{commentId}")
     public ResponseEntity<List<CommentDTO>> getChildComment(@PathVariable(name = "commentId") Integer commentId){
         return ResponseEntity.ok(commentService.getCildComments(commentId));
+    }
+    @PostMapping("makeRootComment")
+    public ResponseEntity<CommentDTO> makeRootComment(@Validated(CommentRequest.AddRootRequest.class) @RequestBody CommentRequest commentRequest){
+        return ResponseEntity.ok(commentService.makeRootComment(commentRequest));
+    }
+    @PostMapping("makeChildComment")
+    public ResponseEntity<CommentDTO> makeChildComment(@Validated(CommentRequest.AddChildrenRequest.class) @RequestBody CommentRequest commentRequest){
+        return ResponseEntity.ok(commentService.makeChildComment(commentRequest));
     }
 }

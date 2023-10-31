@@ -26,7 +26,7 @@ public class Comment {
     private Users poster;
     @Column(name = "content")
     private String content;
-    @Column(name = "create_date")
+    @Column(name = "create_date", insertable = false, updatable = false)
     private Instant createDate;
     @Column(name = "is_root")
     private boolean isRoot;
@@ -41,7 +41,7 @@ public class Comment {
     @OneToMany(mappedBy = "parentComment")
     @JsonIgnoreProperties("parentComment")
     private Set<Comment> childComments;
-    @Column(name = "is_delete")
+    @Column(name = "is_delete", insertable = false)
     private boolean isDeleted;
     @Column(name = "delete_date")
     private Instant deleteDate;
