@@ -23,8 +23,6 @@ public class CommentRequest {
     @NotNull(groups = {UpdateRequest.class})
     @Null(groups = {AddChildrenRequest.class, AddRootRequest.class}, message = "Id không cần được định ra khi thêm mới")
     private Integer commentId;
-//    @NotNull(groups = {AddChildrenRequest.class, AddRootRequest.class}, message = "người đăng không được để trống")
-//    private Users poster;
     @NotBlank(groups = {AddChildrenRequest.class, AddRootRequest.class}, message = "nội dung không được để trống khi tạo mới")
     private String content;
     private boolean isRoot;
@@ -32,8 +30,6 @@ public class CommentRequest {
     private Blog blogRepliedTo;
     @NotNull(groups = {AddChildrenRequest.class}, message = "id comment không được để trống")
     private Comment parentComment;
-    private boolean isDeleted;
-    private Instant deleteDate;
     private Instant updateDate;
     public interface AddRootRequest{
 

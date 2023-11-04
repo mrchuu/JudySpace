@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,7 +35,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())
+                .cors(cors->cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -42,7 +43,9 @@ public class SecurityConfiguration {
                                 "/api/users/resetPassword",
                                 "/api/comment/getRootComments/{blogId}",
                                 "/api/comment/getChildComments/{commentId}",
-                                "/api/blog/getBlogsPaginated").permitAll()
+                                "/api/blog/getBlogsPaginated",
+                                "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}",
+                                "/custom/login").permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
                                 "/api/blog/getAll"
@@ -52,7 +55,9 @@ public class SecurityConfiguration {
                 .oauth2Login(customizer -> customizer
                         .successHandler(successHandler)
                 )
-                .formLogin(AbstractHttpConfigurer::disable)
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                        .loginPage("/custom/login").permitAll()
+                )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

@@ -12,5 +12,7 @@ public interface CommentService {
 
     public CommentDTO makeRootComment(CommentRequest commentRequest);
     public CommentDTO makeChildComment(CommentRequest commentRequest);
+    public CommentDTO updateComment(CommentRequest updateCommentRequest) throws IllegalAccessException;
+
 
 }

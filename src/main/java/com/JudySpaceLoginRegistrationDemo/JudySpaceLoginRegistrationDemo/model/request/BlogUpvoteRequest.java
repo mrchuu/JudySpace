@@ -15,4 +15,6 @@ import java.time.Instant;
 public class BlogUpvoteRequest {
     @NotNull
     private BlogUpvoteKey blogUpvoteKey;
+    private Users user;
+    private Blog blog;
 }

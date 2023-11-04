@@ -7,6 +7,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,4 +34,10 @@ public class CommentController {
     public ResponseEntity<CommentDTO> makeChildComment(@Validated(CommentRequest.AddChildrenRequest.class) @RequestBody CommentRequest commentRequest){
         return ResponseEntity.ok(commentService.makeChildComment(commentRequest));
     }
+    @PutMapping("updateComment")
+    @Transactional
+    public ResponseEntity<CommentDTO> updateComment(@Validated(CommentRequest.UpdateRequest.class) @RequestBody CommentRequest updateComment) throws IllegalAccessException {
+        return ResponseEntity.ok(commentService.updateComment(updateComment));
+    }
+
 }

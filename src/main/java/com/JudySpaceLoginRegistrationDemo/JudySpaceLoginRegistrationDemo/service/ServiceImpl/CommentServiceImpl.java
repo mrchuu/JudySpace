@@ -15,7 +15,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,4 +59,19 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(newChildComment);
         return commentMapper.toDto(newChildComment);
     }
+
+    @Override
+    @Transactional
+    public CommentDTO updateComment(CommentRequest updateCommentRequest) throws IllegalAccessException {
+        Comment existingComment = commentRepository.findById(updateCommentRequest.getCommentId()).orElseThrow(()-> new EntityNotFoundException("Không tìm thấy Blog"));
+        Users inSessionUser = userRepository.findByUserName(getUserInfor()).orElse(null);
+        if (inSessionUser.getUserId() != existingComment.getPoster().getUserId()){
+            throw new IllegalAccessException("Bạn không thể chỉnh sửa comment của người dùng khác");
+        }
+        existingComment = commentMapper.toE(updateCommentRequest);
+        existingComment.setUpdateDate(Instant.now());
+        commentRepository.save(existingComment);
+        return commentMapper.toDto(existingComment);
+    }
+
 }

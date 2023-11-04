@@ -39,10 +39,10 @@ public class Blog {
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties("blogList")
     private BlogCategory blogCategory;
-    @OneToMany(mappedBy = "blog", orphanRemoval = true)
+    @OneToMany(mappedBy = "blog")
     @JsonIgnoreProperties("blog")
     private Set<BlogUpvote> upvotedUsers;
-    @OneToMany(mappedBy = "blogRepliedTo", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "blogRepliedTo", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("blogRepliedTo")
     private Set<Comment> comments;
     @ManyToOne

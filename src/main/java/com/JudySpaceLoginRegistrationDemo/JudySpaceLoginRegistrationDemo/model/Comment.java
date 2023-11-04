@@ -21,7 +21,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     @JsonIgnoreProperties("postedComments")
     private Users poster;
     @Column(name = "content")
@@ -31,11 +31,11 @@ public class Comment {
     @Column(name = "is_root")
     private boolean isRoot;
     @ManyToOne
-    @JoinColumn(name = "blog_id")
+    @JoinColumn(name = "blog_id", updatable = false)
     @JsonIgnoreProperties("comment")
     private Blog blogRepliedTo;
     @ManyToOne
-    @JoinColumn(name = "comment_rep_id")
+    @JoinColumn(name = "comment_rep_id", updatable = false)
     @JsonIgnoreProperties("childComments")
     private Comment parentComment;
     @OneToMany(mappedBy = "parentComment")
@@ -47,7 +47,7 @@ public class Comment {
     private Instant deleteDate;
     @Column(name = "updateDate")
     private Instant updateDate;
-    @OneToMany(mappedBy = "comment", orphanRemoval = true)
+    @OneToMany(mappedBy = "comment")
     @JsonIgnoreProperties("comment")
     private Set<CommentUpvote> upvotedUsers;
     public Integer getNumberOfChild(Comment root) {
