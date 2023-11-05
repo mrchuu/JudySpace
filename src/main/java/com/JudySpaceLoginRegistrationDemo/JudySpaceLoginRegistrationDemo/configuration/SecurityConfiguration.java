@@ -50,13 +50,14 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/blog/getAll"
                         ).hasAnyAuthority("Judy")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+                )
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                        .loginPage("http://localhost:3000/login").permitAll()
                 )
                 .oauth2Login(customizer -> customizer
                         .successHandler(successHandler)
-                )
-                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
-                        .loginPage("/custom/login").permitAll()
+                        .loginPage("http://localhost:3000/login").permitAll()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
