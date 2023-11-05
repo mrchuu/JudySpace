@@ -29,7 +29,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<BlogDTO> getBlogsPaginated(BlogPageRequest blogPageRequest) {
-        Pageable pageable = PageRequest.of(blogPageRequest.getPageIndex(), blogPageRequest.getPageSize());
+        Pageable pageable = PageRequest.of(0, blogPageRequest.getPageSize()*(blogPageRequest.getPageIndex()+1));
         return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(),pageable).map(blogMapper::toDtoWithCustomInfo);
     }
 

@@ -40,30 +40,31 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
-                                "/api/users/resetPassword",
+//                                "/api/users/resetPassword",
                                 "/api/comment/getRootComments/{blogId}",
                                 "/api/comment/getChildComments/{commentId}",
                                 "/api/blog/getBlogsPaginated",
-                                "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}",
-                                "/custom/login").permitAll()
+                                "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}"
+                        ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
                                 "/api/blog/getAll"
                         ).hasAnyAuthority("Judy")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
-                        .loginPage("http://localhost:3000/login").permitAll()
+                        .loginPage("/login").permitAll()
                 )
                 .oauth2Login(customizer -> customizer
                         .successHandler(successHandler)
-                        .loginPage("http://localhost:3000/login").permitAll()
+                        .loginPage("/login").permitAll()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handler -> handler
-                        .accessDeniedHandler(accessDeniedHandler));
+                        .accessDeniedHandler(accessDeniedHandler)
+                );
         return http.build();
     }
     private static final String[] swaggerWhiteList = {
