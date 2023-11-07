@@ -1,8 +1,10 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.controller;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.searchRequest.BlogPageRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ParagraphDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.BlogService;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl.BlogServiceImpl;
 import lombok.AllArgsConstructor;
@@ -27,5 +29,9 @@ public class BlogController {
     @PostMapping("getBlogsPaginated")
     public Page<BlogDTO> getBlogsPaginated(@RequestBody BlogPageRequest blogPageRequest){
         return blogService.getBlogsPaginated(blogPageRequest);
+    }
+    @PostMapping("getBlogDetail/{blogId}")
+    public ResponseEntity<List<ParagraphDTO>> getBlogDetail(@PathVariable("blogId") Integer blogId){
+        return ResponseEntity.ok(blogService.getBlogDetail(blogId));
     }
 }

@@ -64,7 +64,6 @@ public class UserController {
         ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getName());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(rm);
     }
-
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ResponseEntity<ResponseMessage> handleEmailNotFoundException(UsernameNotFoundException e) {
@@ -72,10 +71,4 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(rm);
     }
 
-    @ExceptionHandler(BindException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)// Nếu validate fail thì trả về 400
-    public ResponseEntity<ResponseMessage> handleInputValidationException(BindException e) {
-        ResponseMessage rm = new ResponseMessage("Hành động không hợp lệ", e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(rm);
-    }
 }

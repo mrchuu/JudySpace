@@ -1,6 +1,7 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Integer> {
@@ -48,5 +51,6 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
                     "where b.is_deleted = false "
             , nativeQuery = true)
     public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType, Pageable pageable);
-
+    @Query("Select p from Paragraph p where p.blog.blogId = :blogId")
+    public List<Paragraph> getBlogDetails(@Param("blogId") Integer blogId);
 }

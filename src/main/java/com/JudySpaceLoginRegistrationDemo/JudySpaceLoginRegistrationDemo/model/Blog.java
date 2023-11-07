@@ -49,4 +49,7 @@ public class Blog {
     @JoinColumn(name = "tag_id")
     @JsonIgnoreProperties("blogs")
     private BlogTag blogTag;
+    @OneToMany(mappedBy = "blog")
+    @JsonIgnoreProperties("blog")
+    private Set<Paragraph> paragraphs;
 }

@@ -20,6 +20,7 @@ public class CommentController {
     private CommentService commentService;
     @PostMapping("getRootComments/{blogId}")
     public ResponseEntity<List<CommentDTO>> getRootComment(@PathVariable(name = "blogId") Integer blogId){
+
         return ResponseEntity.ok(commentService.getRootComments(blogId));
     }
     @PostMapping("getChildComments/{commentId}")

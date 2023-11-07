@@ -34,11 +34,13 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public List<CommentDTO> getRootComments(Integer blogId) {
+        blogRepository.findById(blogId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy blog"));
         return commentRepository.getRootComments(blogId).stream().map(commentMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
     public List<CommentDTO> getCildComments(Integer commentId) {
+        commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy comment"));
         return commentRepository.getChildComment(commentId).stream().map(commentMapper::toDto).collect(Collectors.toList());
     }
 

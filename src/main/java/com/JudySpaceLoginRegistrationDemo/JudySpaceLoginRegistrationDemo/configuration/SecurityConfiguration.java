@@ -5,6 +5,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.control
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.securityConfiguration.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,15 +36,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors->cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
                                 "/api/auth/**",
-//                                "/api/users/resetPassword",
+                                "/api/users/resetPassword",
                                 "/api/comment/getRootComments/{blogId}",
                                 "/api/comment/getChildComments/{commentId}",
                                 "/api/blog/getBlogsPaginated",
+                                "/api/blog/getBlogDetail/{blogId}",
                                 "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}"
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
@@ -68,6 +70,7 @@ public class SecurityConfiguration {
                 );
         return http.build();
     }
+
     private static final String[] swaggerWhiteList = {
             "/api/v1/auth/**",
             "/v3/api-docs/**",
