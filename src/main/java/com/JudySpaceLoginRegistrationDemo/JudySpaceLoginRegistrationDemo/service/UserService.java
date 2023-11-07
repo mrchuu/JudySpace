@@ -19,4 +19,6 @@ public interface UserService {
     String changePassword(ChangePasswordRequest request) throws UserPrincipalNotFoundException;
 
     String resetPassword(String email) throws Exception;
+
+    UserDTO getCurrentUserInfo();
 }

@@ -14,5 +14,7 @@ import java.util.List;
 public interface BlogService {
     public List<BlogDTO> getAll();
     public Page<BlogDTO> getBlogsPaginated(BlogPageRequest blogPageRequest);
-    public List<ParagraphDTO> getBlogDetail(Integer blogId);
+    public List<ParagraphDTO> getBlogContent(Integer blogId);
+
+    BlogDTO getBlogDetail(Integer blogId);
 }

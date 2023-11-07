@@ -45,8 +45,9 @@ public class SecurityConfiguration {
                                 "/api/comment/getRootComments/{blogId}",
                                 "/api/comment/getChildComments/{commentId}",
                                 "/api/blog/getBlogsPaginated",
-                                "/api/blog/getBlogDetail/{blogId}",
-                                "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}"
+                                "/api/blog/getBlogContent/{blogId}",
+                                "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}",
+                                "/api/blog/getBlogDetail/{blogId}"
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(

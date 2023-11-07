@@ -18,4 +18,5 @@ public class BlogDTO {
     private Integer upvoteUserSetSize;
     private Integer commentSetSize;
     private BlogTagDTO blogTag;
+    private boolean upvotedByCurrentUser;
 }

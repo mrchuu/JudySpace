@@ -57,6 +57,10 @@ public class UserController {
         ResponseMessage rm = new ResponseMessage("Thành công", userService.resetPassword(request.getEmail()));
         return ResponseEntity.ok(rm);
     }
+    @GetMapping("getCurrentUserInfo")
+    public ResponseEntity<UserDTO> getCurrentUserInfo(){
+        return ResponseEntity.ok(userService.getCurrentUserInfo());
+    }
 
     @ExceptionHandler(UserPrincipalNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
