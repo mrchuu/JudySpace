@@ -40,7 +40,7 @@ public class BlogUpvoteServiceImpl implements BlogUpvoteService {
     }
 
     @Override
-    public BlogUpvote addBlogUpvote(Integer blogId) {
+    public BlogUpvoteDTO addBlogUpvote(Integer blogId) {
         Blog existingBlog = blogRepository.findById(blogId).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy Blog"));
         Users currUser = userRepository.findByUserName(getUserInfor()).orElse(null);
         BlogUpvote newBlogUpvote = new BlogUpvote(
@@ -50,7 +50,7 @@ public class BlogUpvoteServiceImpl implements BlogUpvoteService {
                 currUser
         );
         blogUpvoteRepository.save(newBlogUpvote);
-        return newBlogUpvote;
+        return blogUpvoteMapper.toDto(newBlogUpvote);
     }
 
     @Override

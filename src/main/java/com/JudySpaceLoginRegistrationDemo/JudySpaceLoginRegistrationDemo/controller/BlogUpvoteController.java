@@ -21,7 +21,7 @@ public class BlogUpvoteController {
         return ResponseEntity.ok(blogUpvoteService.getUpvotedUserListOfBlog(blogId));
     }
     @PostMapping("add/{blogId}")
-    public ResponseEntity<BlogUpvote> addUpvote(@PathVariable("blogId") Integer blogId){
+    public ResponseEntity<BlogUpvoteDTO> addUpvote(@PathVariable("blogId") Integer blogId){
         return ResponseEntity.ok(blogUpvoteService.addBlogUpvote(blogId));
     }
     @DeleteMapping("delete/{blogId}")

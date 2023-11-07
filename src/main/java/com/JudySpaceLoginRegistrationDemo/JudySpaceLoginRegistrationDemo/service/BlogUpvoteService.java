@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BlogUpvoteService {
     public List<BlogUpvoteDTO> getUpvotedUserListOfBlog(Integer blogId);
-    BlogUpvote addBlogUpvote(Integer blogId);
+    BlogUpvoteDTO addBlogUpvote(Integer blogId);
 
     void delete(Integer blogId);
 }
