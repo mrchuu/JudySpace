@@ -13,8 +13,9 @@ import java.util.Set;
 @Setter
 public class UserDTO {
     private int userId;
-    private String userName;
+    private String Username;
     private String email;
     private RoleDTO role;
     private String avatarLink;
+
 }
