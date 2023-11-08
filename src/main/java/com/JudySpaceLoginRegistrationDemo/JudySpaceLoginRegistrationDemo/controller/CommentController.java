@@ -3,6 +3,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.contro
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Comment;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.CommentRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.CommentDTO;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ResponseMessage;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,12 @@ public class CommentController {
     @Transactional
     public ResponseEntity<CommentDTO> updateComment(@Validated(CommentRequest.UpdateRequest.class) @RequestBody CommentRequest updateComment) throws IllegalAccessException {
         return ResponseEntity.ok(commentService.updateComment(updateComment));
+    }
+
+    @DeleteMapping("deleteComment/{commentId}")
+    public ResponseEntity<ResponseMessage> deleteComment(@PathVariable("commentId") Integer commentId){
+        commentService.delete(commentId);
+        return ResponseEntity.ok(new ResponseMessage("200", "comment của bạn và tất cả các reply đã được xoá thành công"));
     }
 
 }

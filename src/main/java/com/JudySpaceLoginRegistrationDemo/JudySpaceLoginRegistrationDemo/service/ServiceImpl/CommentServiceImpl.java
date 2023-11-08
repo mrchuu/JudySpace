@@ -76,4 +76,10 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.toDto(existingComment);
     }
 
+    @Override
+    public void delete(Integer commentId) {
+        Comment existingComment = commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy comment"));
+        commentRepository.delete(existingComment);
+    }
+
 }

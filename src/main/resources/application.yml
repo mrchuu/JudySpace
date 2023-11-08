@@ -45,10 +45,16 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-#springdoc:
-#  swagger-ui:
-#   enabled: true
-#  api-docs:
-#    title: My Api
-#    description: API documentation for JudySpace
+#openapi: 3.0.0
+#
+## 1) Define the security scheme type (HTTP bearer)
+#components:
+#  securitySchemes:
+#    bearerAuth:            # arbitrary name for the security scheme
+#      type: http
+#      scheme: bearer
+#      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+## 2) Apply the security globally to all operations
+#security:
+#  - bearerAuth: []
 
