@@ -45,7 +45,6 @@ public class CommentController {
     @DeleteMapping("deleteComment/{commentId}")
     public ResponseEntity<ResponseMessage> deleteComment(@PathVariable("commentId") Integer commentId){
         commentService.delete(commentId);
-        return ResponseEntity.ok(new ResponseMessage("200", "comment của bạn và tất cả các reply đã được xoá thành công"));
+        return ResponseEntity.ok(new ResponseMessage("200", "comment của bạn đã được thu hồi"));
     }
-
 }

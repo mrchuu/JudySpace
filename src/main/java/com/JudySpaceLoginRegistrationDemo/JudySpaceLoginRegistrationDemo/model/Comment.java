@@ -38,7 +38,7 @@ public class Comment {
     @JoinColumn(name = "comment_rep_id", updatable = false)
     @JsonIgnoreProperties("childComments")
     private Comment parentComment;
-    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentComment")
     @JsonIgnoreProperties("parentComment")
     private Set<Comment> childComments;
     @Column(name = "is_delete", insertable = false)
@@ -68,5 +68,4 @@ public class Comment {
 
         return sum;
     }
-
 }

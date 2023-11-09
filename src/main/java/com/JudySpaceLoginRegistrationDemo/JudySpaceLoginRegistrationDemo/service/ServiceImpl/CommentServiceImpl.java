@@ -79,7 +79,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void delete(Integer commentId) {
         Comment existingComment = commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy comment"));
-        commentRepository.delete(existingComment);
+        existingComment.setContent("Comment đã được thu hồi bởi ngươi viết");
+        existingComment.setDeleted(true);
+        existingComment.setDeleteDate(Instant.now());
+        commentRepository.save(existingComment);
     }
 
 }
