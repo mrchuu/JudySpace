@@ -21,7 +21,7 @@ public class Paragraph {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paragraphId;
     @Column(name = "paragraph_content")
-    private String graphContent;
+    private String paragraphContent;
     @ManyToOne
     @JoinColumn(name = "blog_id")
     @JsonIgnoreProperties("paragraphs")

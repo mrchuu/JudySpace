@@ -19,17 +19,15 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlogRequest {
-    @NotNull(groups = {UpdateRequest.class})
-    @Null(groups = {AddRequest.class})
+    @NotNull(groups = {UpdateRequest.class}, message = "Cần chỉ ra id của Blog Khi thực hiện update")
+    @Null(groups = {AddRequest.class}, message = "Không cần chỉ ra id của blog khi thực hiện thêm mới")
     private Integer blogId;
     private String title;
     private String blogThumbnail;
-    private Instant createDate;
     private boolean isDeleted;
-    private Instant updateDate;
-    private Instant deleteDate;
     private BlogCategory blogCategory;
     private BlogTag blogTag;
+    private Set<ParagraphRequest> paragraphs;
 
     public interface AddRequest{
 

@@ -3,6 +3,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Comment;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +32,7 @@ public class CommentRequest {
     @NotNull(groups = {AddChildrenRequest.class}, message = "id comment không được để trống")
     private Comment parentComment;
     private Instant updateDate;
+
     public interface AddRootRequest{
 
     }

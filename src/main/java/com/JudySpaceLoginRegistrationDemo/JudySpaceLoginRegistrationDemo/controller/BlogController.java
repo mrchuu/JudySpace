@@ -2,6 +2,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.contro
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.BlogRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.searchRequest.BlogPageRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ParagraphDTO;
@@ -37,5 +38,9 @@ public class BlogController {
     @PostMapping("getBlogDetail/{blogId}")
     public ResponseEntity<BlogDTO> getBlogDetail(@PathVariable("blogId") Integer blogId){
         return ResponseEntity.ok(blogService.getBlogDetail(blogId));
+    }
+    @PostMapping("addBlog")
+    public ResponseEntity<BlogDTO> addBlog(@RequestBody BlogRequest blogRequest){
+        return ResponseEntity.ok(blogService.addBlog(blogRequest));
     }
 }

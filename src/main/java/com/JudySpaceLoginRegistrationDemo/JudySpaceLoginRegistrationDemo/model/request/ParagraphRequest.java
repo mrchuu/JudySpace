@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 public class ParagraphRequest {
     private Integer paragraphId;
-    private String graphContent;
+    private String paragraphContent;
     private Blog blog;
     private boolean isDeleted;
     private Set<ImageParagraphRequest> imageParagraphs;

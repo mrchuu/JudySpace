@@ -2,6 +2,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Comment;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.CommentRequest;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.CommentDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

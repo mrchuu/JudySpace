@@ -29,11 +29,11 @@ public class Blog {
     private String blogThumbnail;
     @Column(name = "create_date", insertable = false, updatable = false)
     private Instant createDate;
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", insertable = false)
     private boolean isDeleted;
-    @Column(name = "update_date")
+    @Column(name = "update_date", insertable = false)
     private Instant updateDate;
-    @Column(name = "deleted_date")
+    @Column(name = "deleted_date", insertable = false)
     private Instant deleteDate;
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -49,7 +49,8 @@ public class Blog {
     @JoinColumn(name = "tag_id")
     @JsonIgnoreProperties("blogs")
     private BlogTag blogTag;
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("blog")
     private Set<Paragraph> paragraphs;
+
 }

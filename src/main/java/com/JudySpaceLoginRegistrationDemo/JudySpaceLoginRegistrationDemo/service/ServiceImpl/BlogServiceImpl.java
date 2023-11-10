@@ -1,10 +1,12 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl;
 
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.ImageParagraph;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Mapper.BlogMapper;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Mapper.ParagraphMapper;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.BlogRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.searchRequest.BlogPageRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogUpvoteDTO;
@@ -67,6 +69,19 @@ public class BlogServiceImpl implements BlogService {
     public BlogDTO getBlogDetail(Integer blogId) {
         Blog blog = blogRepository.findById(blogId).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy Blog"));
         return blogMapper.toDtoWithCustomInfo(blog);
+    }
+
+    @Override
+    public BlogDTO addBlog(BlogRequest blogRequest) {
+        Blog newBlog = blogMapper.toE(blogRequest);
+        for (Paragraph newParagraph: newBlog.getParagraphs()){
+            for(ImageParagraph image: newParagraph.getImageParagraphs()){
+                image.setParagraph(newParagraph);
+            }
+            newParagraph.setBlog(newBlog);
+        }
+        blogRepository.save(newBlog);
+        return blogMapper.toDtoWithCustomInfo(newBlog);
     }
 
 }

@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/users/resetPassword",
+                                "/api/users/getCurrentUserInfo",
                                 "/api/comment/getRootComments/{blogId}",
                                 "/api/comment/getChildComments/{commentId}",
                                 "/api/blog/getBlogsPaginated",
@@ -51,7 +52,8 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
-                                "/api/blog/getAll"
+                                "/api/blog/getAll",
+                                "/api/blog/addBlog"
                         ).hasAnyAuthority("Judy")
                         .anyRequest().authenticated()
                 )
