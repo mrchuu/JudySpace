@@ -11,10 +11,8 @@ import java.util.Set;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     @Query("Select c from Comment c where c.blogRepliedTo.blogId = :blogId " +
-            "and c.isDeleted = false " +
             "and c.isRoot = true")
     public List<Comment> getRootComments(@Param("blogId") Integer blogId);
-    @Query("Select c from Comment c where c.parentComment.commentId = :repliedTo " +
-            "and c.isDeleted = false")
+    @Query("Select c from Comment c where c.parentComment.commentId = :repliedTo ")
     public List<Comment> getChildComment(@Param("repliedTo") Integer comment);
 }
