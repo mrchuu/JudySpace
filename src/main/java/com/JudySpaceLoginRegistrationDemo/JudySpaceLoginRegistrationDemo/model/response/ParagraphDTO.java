@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class ParagraphDTO {
     private Integer paragraphId;
-    private String graphContent;
+    private String paragraphContent;
     private Instant createDate;
     private Set<ImageParagraphDTO> imageParagraphs;
 }

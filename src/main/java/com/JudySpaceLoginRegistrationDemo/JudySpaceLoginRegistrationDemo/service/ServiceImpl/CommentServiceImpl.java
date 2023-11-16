@@ -28,20 +28,43 @@ public class CommentServiceImpl implements CommentService {
     private final BlogRepository blogRepository;
     private final CommentMapper commentMapper;
     private final UserRepository userRepository;
-    private String getUserInfor(){
+
+    private String getUserInfor() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();
     }
+
     @Override
     public List<CommentDTO> getRootComments(Integer blogId) {
-        blogRepository.findById(blogId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy blog"));
-        return commentRepository.getRootComments(blogId).stream().map(commentMapper::toDto).collect(Collectors.toList());
+        blogRepository.findById(blogId).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy blog"));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getName().equalsIgnoreCase("AnonymousUser")) {
+            Users currentUser = userRepository.findByUserName(auth.getName()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy người dùng"));
+            return commentRepository.getRootComments(blogId).stream().map(comment -> {
+                CommentDTO commentDTO = commentMapper.toDto(comment);
+                commentDTO.setPostedByUser(comment.getPoster().getUserId() == currentUser.getUserId());
+                return commentDTO;
+            }).collect(Collectors.toList());
+        } else {
+            return commentRepository.getRootComments(blogId).stream().map(commentMapper::toDto).collect(Collectors.toList());
+        }
+
     }
 
     @Override
-    public List<CommentDTO> getCildComments(Integer commentId) {
-        commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy comment"));
-        return commentRepository.getChildComment(commentId).stream().map(commentMapper::toDto).collect(Collectors.toList());
+    public List<CommentDTO> getChildComments(Integer commentId) {
+        commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy comment"));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!auth.getName().equalsIgnoreCase("AnonymousUser")) {
+            Users currentUser = userRepository.findByUserName(auth.getName()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy người dùng"));
+            return commentRepository.getChildComment(commentId).stream().map(comment -> {
+                CommentDTO commentDTO = commentMapper.toDto(comment);
+                commentDTO.setPostedByUser(comment.getPoster().getUserId() == currentUser.getUserId());
+                return commentDTO;
+            }).collect(Collectors.toList());
+        } else {
+            return commentRepository.getChildComment(commentId).stream().map(commentMapper::toDto).collect(Collectors.toList());
+        }
     }
 
 
@@ -65,9 +88,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public CommentDTO updateComment(CommentRequest updateCommentRequest) throws IllegalAccessException {
-        Comment existingComment = commentRepository.findById(updateCommentRequest.getCommentId()).orElseThrow(()-> new EntityNotFoundException("Không tìm thấy Blog"));
+        Comment existingComment = commentRepository.findById(updateCommentRequest.getCommentId()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy Blog"));
         Users inSessionUser = userRepository.findByUserName(getUserInfor()).orElse(null);
-        if (inSessionUser.getUserId() != existingComment.getPoster().getUserId()){
+        if (inSessionUser.getUserId() != existingComment.getPoster().getUserId()) {
             throw new IllegalAccessException("Bạn không thể chỉnh sửa comment của người dùng khác");
         }
         existingComment = commentMapper.toE(updateCommentRequest);
@@ -78,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delete(Integer commentId) {
-        Comment existingComment = commentRepository.findById(commentId).orElseThrow(()->new EntityNotFoundException("Không tìm thấy comment"));
+        Comment existingComment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy comment"));
         existingComment.setContent("Comment đã được thu hồi bởi ngươi viết");
         existingComment.setDeleted(true);
         existingComment.setDeleteDate(Instant.now());

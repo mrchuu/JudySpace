@@ -52,8 +52,8 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
-                                "/api/blog/getAll",
-                                "/api/blog/addBlog"
+                                "/api/blog/getAll"
+//                                "/api/blog/addBlog"
                         ).hasAnyAuthority("Judy")
                         .anyRequest().authenticated()
                 )

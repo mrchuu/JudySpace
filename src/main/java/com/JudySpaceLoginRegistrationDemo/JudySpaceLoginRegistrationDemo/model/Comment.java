@@ -28,7 +28,7 @@ public class Comment {
     private String content;
     @Column(name = "create_date", insertable = false, updatable = false)
     private Instant createDate;
-    @Column(name = "is_root")
+    @Column(name = "is_root", updatable = false)
     private boolean isRoot;
     @ManyToOne
     @JoinColumn(name = "blog_id", updatable = false)

@@ -53,4 +53,10 @@
             ALTER TABLE public.comment_upvote ADD CONSTRAINT comment_upvote_pk PRIMARY KEY (user_id,comment_id);
         </sql>
     </changeSet>
+    <changeSet id="addCaptionToBlog" author="chuson">
+        <sql>
+            ALTER TABLE public.blog ADD caption varchar NULL;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

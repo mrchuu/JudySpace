@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommentService {
     public List<CommentDTO> getRootComments(Integer blogId);
-    public List<CommentDTO> getCildComments(Integer commentId);
+    public List<CommentDTO> getChildComments(Integer commentId);
 
     public CommentDTO makeRootComment(CommentRequest commentRequest);
     public CommentDTO makeChildComment(CommentRequest commentRequest);

@@ -14,6 +14,7 @@ import java.util.Set;
 public class BlogDTO {
     private Integer blogId;
     private String title;
+    public String caption;
     private String blogThumbnail;
     private Instant createDate;
     private BlogCategoryDTO blogCategory;

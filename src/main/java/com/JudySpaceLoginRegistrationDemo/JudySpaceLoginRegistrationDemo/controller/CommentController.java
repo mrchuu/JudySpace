@@ -26,7 +26,7 @@ public class CommentController {
     }
     @PostMapping("getChildComments/{commentId}")
     public ResponseEntity<List<CommentDTO>> getChildComment(@PathVariable(name = "commentId") Integer commentId){
-        return ResponseEntity.ok(commentService.getCildComments(commentId));
+        return ResponseEntity.ok(commentService.getChildComments(commentId));
     }
     @PostMapping("makeRootComment")
     public ResponseEntity<CommentDTO> makeRootComment(@Validated(CommentRequest.AddRootRequest.class) @RequestBody CommentRequest commentRequest){

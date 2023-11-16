@@ -23,4 +23,5 @@ public class CommentDTO {
     private Integer upvoteNumber;
     private Integer childCommentNumber;
     private BlogDTO blogRepliedTo;
+    private boolean postedByUser;
 }

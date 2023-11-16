@@ -52,5 +52,6 @@ public class Blog {
     @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("blog")
     private Set<Paragraph> paragraphs;
-
+    @Column(name = "caption")
+    private String caption;
 }
