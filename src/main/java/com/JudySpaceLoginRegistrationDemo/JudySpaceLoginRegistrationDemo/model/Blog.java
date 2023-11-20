@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.Set;
@@ -31,6 +32,7 @@ public class Blog {
     private Instant createDate;
     @Column(name = "is_deleted", insertable = false)
     private boolean isDeleted;
+    @UpdateTimestamp
     @Column(name = "update_date", insertable = false)
     private Instant updateDate;
     @Column(name = "deleted_date", insertable = false)

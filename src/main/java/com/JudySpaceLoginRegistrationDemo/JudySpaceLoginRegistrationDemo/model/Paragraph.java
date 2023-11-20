@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class Paragraph {
     private boolean isDeleted;
     @Column(name = "delete_date", insertable = false)
     private Instant deleteDate;
+    @UpdateTimestamp
     @Column(name = "update_date", insertable = false)
     private Instant updateDate;
     @OneToMany(mappedBy = "paragraph", cascade = CascadeType.ALL)
