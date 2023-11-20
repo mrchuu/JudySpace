@@ -48,12 +48,15 @@ public class SecurityConfiguration {
                                 "/api/blog/getBlogsPaginated",
                                 "/api/blog/getBlogContent/{blogId}",
                                 "/api/blogUpvote/getUpvotedUserListOfBlog/{blogId}",
-                                "/api/blog/getBlogDetail/{blogId}"
+                                "/api/blog/getBlogDetail/{blogId}",
+                                "/api/blogTag/getAll",
+                                "/api/blog/updateBlog"
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
-                                "/api/blog/getAll"
-//                                "/api/blog/addBlog"
+                                "/api/blog/getAll",
+                                "/api/blog/addBlog"
+//                                "/api/blog/updateBlog"
                         ).hasAnyAuthority("Judy")
                         .anyRequest().authenticated()
                 )

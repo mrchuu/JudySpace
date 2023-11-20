@@ -31,16 +31,20 @@ public class BlogController {
     public Page<BlogDTO> getBlogsPaginated(@RequestBody BlogPageRequest blogPageRequest){
         return blogService.getBlogsPaginated(blogPageRequest);
     }
-    @PostMapping("getBlogContent/{blogId}")
+    @GetMapping("getBlogContent/{blogId}")
     public ResponseEntity<List<ParagraphDTO>> getBlogContent(@PathVariable("blogId") Integer blogId){
         return ResponseEntity.ok(blogService.getBlogContent(blogId));
     }
-    @PostMapping("getBlogDetail/{blogId}")
+    @GetMapping("getBlogDetail/{blogId}")
     public ResponseEntity<BlogDTO> getBlogDetail(@PathVariable("blogId") Integer blogId){
         return ResponseEntity.ok(blogService.getBlogDetail(blogId));
     }
     @PostMapping("addBlog")
     public ResponseEntity<BlogDTO> addBlog(@RequestBody BlogRequest blogRequest){
         return ResponseEntity.ok(blogService.addBlog(blogRequest));
+    }
+    @PostMapping("updateBlog")
+    public ResponseEntity<BlogDTO> updateBlog(@RequestBody BlogRequest blogRequest){
+        return ResponseEntity.ok(blogService.updateBlog(blogRequest));
     }
 }

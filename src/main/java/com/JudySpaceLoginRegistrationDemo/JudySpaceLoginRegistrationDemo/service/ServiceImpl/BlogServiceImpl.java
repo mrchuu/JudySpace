@@ -84,4 +84,12 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.toDtoWithCustomInfo(newBlog);
     }
 
+    @Override
+    public BlogDTO updateBlog(BlogRequest blogRequest) {
+        Blog existingBlog = blogRepository.findById(blogRequest.getBlogId()).orElseThrow(()->new EntityNotFoundException("Hệ thống không tìm thấy Blog"));
+        existingBlog = blogMapper.toE(blogRequest);
+        blogRepository.save(existingBlog);
+        return blogMapper.toDtoWithCustomInfo(existingBlog);
+    }
+
 }

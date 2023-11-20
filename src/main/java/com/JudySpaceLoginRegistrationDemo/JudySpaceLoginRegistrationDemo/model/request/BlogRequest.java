@@ -24,6 +24,7 @@ public class BlogRequest {
     private Integer blogId;
     private String title;
     private String blogThumbnail;
+    private String caption;
     private boolean isDeleted;
     private BlogCategory blogCategory;
     private BlogTag blogTag;

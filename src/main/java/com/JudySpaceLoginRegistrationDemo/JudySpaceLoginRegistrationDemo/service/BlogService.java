@@ -19,4 +19,6 @@ public interface BlogService {
 
     BlogDTO getBlogDetail(Integer blogId);
     BlogDTO addBlog(BlogRequest blogRequest);
+
+    BlogDTO updateBlog(BlogRequest blogRequest);
 }

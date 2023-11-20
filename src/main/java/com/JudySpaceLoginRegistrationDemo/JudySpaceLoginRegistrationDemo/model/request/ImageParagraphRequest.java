@@ -14,6 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImageParagraphRequest {
+    private Integer imageId;
     private String imageLink;
     private Paragraph paragraph;
 

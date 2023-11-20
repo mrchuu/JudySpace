@@ -23,7 +23,7 @@ public class Paragraph {
     @Column(name = "paragraph_content")
     private String paragraphContent;
     @ManyToOne
-    @JoinColumn(name = "blog_id")
+    @JoinColumn(name = "blog_id", updatable = false)
     @JsonIgnoreProperties("paragraphs")
     private Blog blog;
     @Column(name = "create_date", insertable = false, updatable = false)
