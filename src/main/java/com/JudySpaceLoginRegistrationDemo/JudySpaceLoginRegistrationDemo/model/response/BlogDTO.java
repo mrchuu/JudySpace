@@ -1,5 +1,6 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response;
 
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.MovieCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class BlogDTO {
     private Integer commentSetSize;
     private BlogTagDTO blogTag;
     private boolean upvotedByCurrentUser;
+    private String youtubeLink;
+    private Set<MovieCategoryDTO> movieCategories;
 }

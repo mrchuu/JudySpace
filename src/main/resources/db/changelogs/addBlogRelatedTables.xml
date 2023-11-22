@@ -58,5 +58,53 @@
             ALTER TABLE public.blog ADD caption varchar NULL;
         </sql>
     </changeSet>
+    <changeSet id="addYoutubeLinkToBlog" author="chuson">
+        <sql>
+            ALTER TABLE public.blog ADD youtube_link varchar NULL;
+            COMMENT ON COLUMN public.blog.youtube_link IS 'if the blog talks about films, it has a link that leads to
+            its trailer';
+        </sql>
+    </changeSet>
+    <changeSet id="addMovieCategory" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.movie_category (
+            movie_category_id serial NOT NULL,
+            catogory_name varchar NULL,
+            create_date timestamp with time zone NULL,
+            updated_date timestamp with time zone NULL,
+            delete_date timestamp with time zone NULL,
+            CONSTRAINT movie_category_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
 
+    <changeSet id="addManyToManyRelationshipBetweenBlogAndMovieCategory" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.blog_movie_catgory (
+            blog_id int4 NOT NULL,
+            movie_category_id int4 NOT NULL,
+            create_date timestamptz NULL DEFAULT CURRENT_TIMESTAMP,
+            CONSTRAINT blog_movie_catgory_pk PRIMARY KEY (blog_id, movie_category_id)
+            );
+            ALTER TABLE public.blog_movie_catgory ADD CONSTRAINT blog_movie_catgory_fk FOREIGN KEY (movie_category_id)
+            REFERENCES public.movie_category(movie_category_id);
+            ALTER TABLE public.blog_movie_catgory ADD CONSTRAINT blog_movie_catgory_fk_1 FOREIGN KEY (blog_id)
+            REFERENCES public.blog(blog_id);
+        </sql>
+    </changeSet>
+    <changeSet id="DUMB1" author="chuson">
+        <sql>
+            ALTER TABLE public.movie_category ALTER COLUMN create_date SET DEFAULT CURRENT_TIMESTAMP;
+        </sql>
+    </changeSet>
+    <changeSet id="DUMB2" author="chuson">
+        <sql>
+            ALTER TABLE public.movie_category ADD is_deleted boolean NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="DUMB3" author="chuson">
+        <sql>
+            ALTER TABLE public.movie_category ALTER COLUMN is_deleted SET DEFAULT false;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

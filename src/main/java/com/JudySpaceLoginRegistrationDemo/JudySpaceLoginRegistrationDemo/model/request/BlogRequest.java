@@ -29,6 +29,7 @@ public class BlogRequest {
     private BlogCategory blogCategory;
     private BlogTag blogTag;
     private Set<ParagraphRequest> paragraphs;
+    private String youtubeLink;
 
     public interface AddRequest{
 

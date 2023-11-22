@@ -46,7 +46,7 @@ public class BlogServiceImpl implements BlogService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!auth.getName().equalsIgnoreCase("AnonymousUser")) {
             Users currentUser = userRepository.findByUserName(auth.getName()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy người dùng"));
-            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), pageable).map(
+            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), pageable).map(
                     blog -> {
                         BlogDTO blogDTO = blogMapper.toDtoWithCustomInfo(blog);
                         blog.getUpvotedUsers().stream().filter(user -> user.getUser().getUserId() == currentUser.getUserId())
@@ -55,7 +55,7 @@ public class BlogServiceImpl implements BlogService {
                     }
             );
         } else {
-            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), pageable).map(blogMapper::toDtoWithCustomInfo);
+            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), pageable).map(blogMapper::toDtoWithCustomInfo);
         }
     }
 

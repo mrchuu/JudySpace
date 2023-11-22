@@ -56,4 +56,9 @@ public class Blog {
     private Set<Paragraph> paragraphs;
     @Column(name = "caption")
     private String caption;
+    @Column(name = "youtube_link")
+    private String youtubeLink;
+    @ManyToMany(mappedBy = "moviesBelongedTo")
+    @JsonIgnoreProperties("moviesBelongedTo")
+    private Set<MovieCategory> movieCategories;
 }

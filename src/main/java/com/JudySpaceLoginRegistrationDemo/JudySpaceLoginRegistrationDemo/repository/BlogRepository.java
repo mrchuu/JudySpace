@@ -36,7 +36,8 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             "where cj.blog_id = buj.blog_id " +
             "and (:searchName is Null or Lower(cj.title) like CONCAT('%', LOWER(:searchName), '%')) " +
             "and (:tagId is Null or cj.tag_id = :tagId) " +
-            "group by cj.caption, cj.blog_id, cj.title, cj.blog_thumbnail, cj.create_date, cj.is_deleted, cj.deleted_date, cj.update_date, cj.category_id, cj.tag_id, cj.commentCount, buj.blog_id, buj.upvoteCount " +
+            "and (:category_id is Null or cj.category_id = :category_id)" +
+            "group by cj.youtube_link, cj.caption, cj.blog_id, cj.title, cj.blog_thumbnail, cj.create_date, cj.is_deleted, cj.deleted_date, cj.update_date, cj.category_id, cj.tag_id, cj.commentCount, buj.blog_id, buj.upvoteCount " +
             "ORDER BY " +
             "CASE " +
             "WHEN :sortType = 'popularity24h' THEN sum(buj.upvoteCount + cj.commentCount) " +
@@ -50,7 +51,7 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             countQuery = "select count(b.blog_id) from blog b " +
                     "where b.is_deleted = false "
             , nativeQuery = true)
-    public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType, Pageable pageable);
+    public Page<Blog> getBlogsByPage(@Param("searchName") String searchName, @Param("tagId") Integer tagId, @Param("sortType") String sortType,@Param("category_id") Integer categoryId, Pageable pageable);
     @Query("Select p from Paragraph p where p.blog.blogId = :blogId")
     public List<Paragraph> getBlogDetails(@Param("blogId") Integer blogId);
 }

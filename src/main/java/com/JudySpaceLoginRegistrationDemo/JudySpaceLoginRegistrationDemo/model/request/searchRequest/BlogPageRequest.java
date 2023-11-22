@@ -12,12 +12,13 @@ public class BlogPageRequest extends SearchRequest{
     private String searchName;
     private String sortType;
     private Integer tagId;
-
-    public BlogPageRequest(int pageIndex, int pageSize, String searchName, String sortType, Integer tagId) {
+    private Integer categoryId;
+    public BlogPageRequest(int pageIndex, int pageSize, String searchName, String sortType, Integer tagId, Integer categoryId) {
         super(pageIndex, pageSize);
         this.searchName = searchName;
         this.sortType = sortType;
         this.tagId = tagId;
+        this.categoryId = categoryId;
     }
 
     public BlogPageRequest(int pageIndex, int pageSize) {
