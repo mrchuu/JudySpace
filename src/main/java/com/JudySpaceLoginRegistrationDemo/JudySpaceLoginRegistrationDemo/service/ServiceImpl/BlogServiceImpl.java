@@ -44,9 +44,10 @@ public class BlogServiceImpl implements BlogService {
     public Page<BlogDTO> getBlogsPaginated(BlogPageRequest blogPageRequest) {
         Pageable pageable = PageRequest.of(0, blogPageRequest.getPageSize() * (blogPageRequest.getPageIndex() + 1));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Page<BlogDTO> res = null;
         if (!auth.getName().equalsIgnoreCase("AnonymousUser")) {
             Users currentUser = userRepository.findByUserName(auth.getName()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy người dùng"));
-            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), pageable).map(
+            res = blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), blogPageRequest.getMovieCategories(), blogPageRequest.getMovieCategories().size(), pageable).map(
                     blog -> {
                         BlogDTO blogDTO = blogMapper.toDtoWithCustomInfo(blog);
                         blog.getUpvotedUsers().stream().filter(user -> user.getUser().getUserId() == currentUser.getUserId())
@@ -55,8 +56,10 @@ public class BlogServiceImpl implements BlogService {
                     }
             );
         } else {
-            return blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), pageable).map(blogMapper::toDtoWithCustomInfo);
+            res = blogRepository.getBlogsByPage(blogPageRequest.getSearchName(), blogPageRequest.getTagId(), blogPageRequest.getSortType(), blogPageRequest.getCategoryId(), blogPageRequest.getMovieCategories(), blogPageRequest.getMovieCategories().size(), pageable).map(blogMapper::toDtoWithCustomInfo);
         }
+
+        return res;
     }
 
     @Override
