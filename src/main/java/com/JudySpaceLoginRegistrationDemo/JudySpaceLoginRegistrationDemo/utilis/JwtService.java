@@ -1,6 +1,7 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -69,7 +70,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + (long) (1000 * 60 * 60 * 24 * 7)))
+                .setExpiration(new Date(System.currentTimeMillis() + (long) (1000 * 60 * 60 * 24)))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

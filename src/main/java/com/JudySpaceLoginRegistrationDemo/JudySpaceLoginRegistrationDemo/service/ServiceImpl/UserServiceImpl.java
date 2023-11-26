@@ -113,8 +113,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getCurrentUserInfo() {
+    public UserDTO getCurrentUserInfo() throws IllegalAccessException {
+        System.out.println("vafo chua nhi");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.getName().equalsIgnoreCase("AnonymousUser")){
+            throw new IllegalAccessException("không có token");
+        }
         String userName = auth.getName();
         Users currentUser = userRepository.findByUserName(userName).orElseThrow(()->new EntityNotFoundException("Không tìm thấy tên đăng nhập"));
         return userMapper.toDto(currentUser);

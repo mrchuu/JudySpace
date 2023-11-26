@@ -20,5 +20,5 @@ public interface UserService {
 
     String resetPassword(String email) throws Exception;
 
-    UserDTO getCurrentUserInfo();
+    UserDTO getCurrentUserInfo() throws IllegalAccessException;
 }

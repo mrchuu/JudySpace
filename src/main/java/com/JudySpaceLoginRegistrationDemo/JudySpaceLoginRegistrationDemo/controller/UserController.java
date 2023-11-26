@@ -58,7 +58,7 @@ public class UserController {
         return ResponseEntity.ok(rm);
     }
     @GetMapping("getCurrentUserInfo")
-    public ResponseEntity<UserDTO> getCurrentUserInfo(){
+    public ResponseEntity<UserDTO> getCurrentUserInfo() throws IllegalAccessException {
         return ResponseEntity.ok(userService.getCurrentUserInfo());
     }
 
