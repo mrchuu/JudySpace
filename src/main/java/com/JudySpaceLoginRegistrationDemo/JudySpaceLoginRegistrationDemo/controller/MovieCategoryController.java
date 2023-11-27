@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/movieController/")
+@RequestMapping("/api/movieCategoryController/")
 public class MovieCategoryController {
     private MovieCategoryService movieCategoryService;
     @GetMapping("getAll")

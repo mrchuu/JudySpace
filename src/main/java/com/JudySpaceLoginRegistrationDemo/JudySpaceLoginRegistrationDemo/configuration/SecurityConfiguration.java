@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                                 "/api/blog/getBlogDetail/{blogId}",
                                 "/api/blogTag/getAll",
                                 "/api/blog/updateBlog",
-                                "/api/movieController/getAll"
+                                "/api/movieCategoryController/getAll"
                         ).permitAll()
                         .requestMatchers(swaggerWhiteList).permitAll()
                         .requestMatchers(
