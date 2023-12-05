@@ -10,4 +10,6 @@ public interface AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request);
 
     public String confirmRegistration(String verificationToken) throws Exception;
+
+    public String refreshToken(String refreshToken);
 }

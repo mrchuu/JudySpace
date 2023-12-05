@@ -35,12 +35,7 @@ public class MovieCategory {
     private Instant deletedDate;
     @Column(name = "is_deleted", insertable = false)
     private boolean isDeleted;
-    @ManyToMany
-    @JoinTable(
-            name = "blog_movie_catgory",
-            joinColumns = @JoinColumn(name = "movie_category_id"),
-            inverseJoinColumns = @JoinColumn(name = "blog_id")
-    )
+    @ManyToMany(mappedBy = "movieCategories", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movieCategories")
     private Set<Blog> moviesBelongedTo;
 }

@@ -65,6 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 }
             }catch (Exception e) {
+                response.setHeader("Access-Control-Allow-Origin", "*");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 ResponseMessage rm = new ResponseMessage("error", e.getMessage());
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);

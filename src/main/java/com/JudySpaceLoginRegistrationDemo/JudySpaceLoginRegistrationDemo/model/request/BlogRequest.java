@@ -3,6 +3,7 @@ package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogCategory;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogTag;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.BlogUpvote;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.MovieCategory;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class BlogRequest {
     private BlogTag blogTag;
     private Set<ParagraphRequest> paragraphs;
     private String youtubeLink;
+    private Set<MovieCategory> movieCategories;
 
     public interface AddRequest{
 

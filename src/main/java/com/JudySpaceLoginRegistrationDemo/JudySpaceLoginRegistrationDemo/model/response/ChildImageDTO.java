@@ -1,6 +1,6 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response;
 
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.ImageParagraph;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,15 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
-import java.util.Set;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageParagraphDTO {
-    private Integer imageId;
+public class ChildImageDTO {
+    private Integer id;
     private String imageLink;
-    private Set<ChildImageDTO> childImages;
+    private Integer topIndex;
+    private Integer leftIndex;
+    private Integer width;
 }

@@ -1,17 +1,15 @@
 package com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.ServiceImpl;
 
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Blog;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.ImageParagraph;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.*;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Mapper.BlogMapper;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Mapper.ParagraphMapper;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Paragraph;
-import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.Users;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.BlogRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.request.searchRequest.BlogPageRequest;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.BlogUpvoteDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.model.response.ParagraphDTO;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.BlogRepository;
+import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.MovieCategoriesRepository;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.repository.UserRepository;
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service.BlogService;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +22,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -34,6 +34,7 @@ public class BlogServiceImpl implements BlogService {
     private UserRepository userRepository;
     private BlogMapper blogMapper;
     private ParagraphMapper paragraphMapper;
+    private MovieCategoriesRepository movieCategoriesRepository;
 
     @Override
     public List<BlogDTO> getAll() {
@@ -78,9 +79,18 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public BlogDTO addBlog(BlogRequest blogRequest) {
         Blog newBlog = blogMapper.toE(blogRequest);
-        for (Paragraph newParagraph: newBlog.getParagraphs()){
-            for(ImageParagraph image: newParagraph.getImageParagraphs()){
+
+        if (blogRequest.getMovieCategories().size() > 0) {
+            Set<MovieCategory> movieCategorySet = movieCategoriesRepository.findAllById(blogRequest.getMovieCategories().stream().map(mc -> mc.getMovieCategoryId()).collect(Collectors.toList()))
+                    .stream().collect(Collectors.toSet());
+            newBlog.setMovieCategories(movieCategorySet);
+        }
+        for (Paragraph newParagraph : newBlog.getParagraphs()) {
+            for (ImageParagraph image : newParagraph.getImageParagraphs()) {
                 image.setParagraph(newParagraph);
+                for (ChildImages childImages: image.getChildImages()){
+                    childImages.setParentImage(image);
+                }
             }
             newParagraph.setBlog(newBlog);
         }
@@ -90,7 +100,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogDTO updateBlog(BlogRequest blogRequest) {
-        Blog existingBlog = blogRepository.findById(blogRequest.getBlogId()).orElseThrow(()->new EntityNotFoundException("Không tìm thấy Blog"));
+        Blog existingBlog = blogRepository.findById(blogRequest.getBlogId()).orElseThrow(() -> new EntityNotFoundException("Không tìm thấy Blog"));
         existingBlog = blogMapper.toE(blogRequest);
         blogRepository.save(existingBlog);
         return blogMapper.toDtoWithCustomInfo(existingBlog);

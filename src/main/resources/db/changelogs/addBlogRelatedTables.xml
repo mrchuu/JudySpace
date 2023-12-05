@@ -107,4 +107,18 @@
             ALTER TABLE public.movie_category ALTER COLUMN is_deleted SET DEFAULT false;
         </sql>
     </changeSet>
+    <changeSet id="childImages" author="chuson">
+        <sql>
+            CREATE TABLE IF NOT EXISTS public.child_images (
+            child_images_id serial not NULL,
+            image_id int NULL,
+            image_link varchar NOT NULL,
+            top_index int NULL,
+            left_index int NULL,
+            width int NULL,
+            CONSTRAINT child_images_pk PRIMARY KEY (child_images_id),
+            CONSTRAINT child_images_fk FOREIGN KEY (image_id) REFERENCES public.paragraph_image(image_id)
+            );
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -37,6 +37,11 @@ public class AuthenticationController {
         AuthenticationResponse response = authenticationService.authenticate(request);
         return response;
     }
+    @PostMapping("/refreshToken")
+    public ResponseEntity<ResponseMessage> refreshAccessToken(@RequestHeader(name = "Authorization") String refreshToken){
+        String refreshedAccessToken = authenticationService.refreshToken(refreshToken.substring(7));
+        return ResponseEntity.ok(new ResponseMessage("The accessToken was successfully refreshed", refreshedAccessToken));
+    }
 
     @GetMapping("/confirmRegistration/{verificationToken}")
     public ResponseEntity<ResponseMessage> confirmRegistration(@PathVariable("verificationToken") String verificationToken) throws Exception {

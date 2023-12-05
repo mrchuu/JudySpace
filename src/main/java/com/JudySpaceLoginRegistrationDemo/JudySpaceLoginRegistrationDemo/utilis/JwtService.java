@@ -37,6 +37,7 @@ public class JwtService {
         return generateAccessToken(claims, userDetails);
 
     }
+
     public String generateVerificationToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userDetails.getAuthorities().stream()
@@ -44,13 +45,14 @@ public class JwtService {
         return generateVerificationToken(claims, userDetails);
 
     }
-    public String generateRefreshToken(UserDetails userDetails){
+
+    public String generateRefreshToken(UserDetails userDetails) {
         return generateRefreshToken(new HashMap<>(), userDetails);
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUsername(token);
-        return (userName.equals(userDetails.getUsername()))&&!isTokenExpired(token);
+        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
@@ -58,7 +60,7 @@ public class JwtService {
     }
 
     private Date extractTokenExpiration(String token) {
-        return  extractClaims(token, Claims::getExpiration);
+        return extractClaims(token, Claims::getExpiration);
     }
 
     public String generateAccessToken(
@@ -74,6 +76,7 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
     public String generateRefreshToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails
@@ -83,10 +86,11 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + (long) (1000 * 60 * 60 * 24 * 100)))
+                .setExpiration(new Date(System.currentTimeMillis() + (long) (1000 * 60 * 60 * 24)))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
     public String generateVerificationToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails

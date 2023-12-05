@@ -11,6 +11,7 @@ import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.service
 import com.JudySpaceLoginRegistrationDemo.JudySpaceLoginRegistrationDemo.utilis.JwtService;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -215,5 +216,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new Exception(e.getMessage());
         }
         return message;
+    }
+
+    @Override
+    public String refreshToken(String refreshToken) {
+        String result = "";
+        try{
+            Users currentUser = userRepository.findByUserName(jwtService.extractUsername(refreshToken)).orElseThrow(()->new EntityNotFoundException("Không tìm thấy người dùng"));
+            result = jwtService.generateAccessToken(currentUser);
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
     }
 }

@@ -21,6 +21,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class Blog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer blogId;
@@ -58,7 +59,13 @@ public class Blog {
     private String caption;
     @Column(name = "youtube_link")
     private String youtubeLink;
-    @ManyToMany(mappedBy = "moviesBelongedTo")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "blog_movie_catgory",
+            joinColumns = @JoinColumn(name = "blog_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_category_id")
+    )
     @JsonIgnoreProperties("moviesBelongedTo")
     private Set<MovieCategory> movieCategories;
+
 }
