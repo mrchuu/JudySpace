@@ -18,4 +18,5 @@ public class ChildImageDTO {
     private Integer topIndex;
     private Integer leftIndex;
     private Integer width;
+    private String imageClass;
 }

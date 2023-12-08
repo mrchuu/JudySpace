@@ -121,4 +121,9 @@
             );
         </sql>
     </changeSet>
+    <changeSet id="childImagesClass" author="chuson">
+        <sql>
+            ALTER TABLE public.child_images ADD image_class varchar NULL DEFAULT 'character';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

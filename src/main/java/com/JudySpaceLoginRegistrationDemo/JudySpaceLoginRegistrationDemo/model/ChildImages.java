@@ -30,4 +30,6 @@ public class ChildImages {
     private Integer leftIndex;
     @Column(name = "width")
     private Integer width;
+    @Column(name = "image_class")
+    private String imageClass;
 }
