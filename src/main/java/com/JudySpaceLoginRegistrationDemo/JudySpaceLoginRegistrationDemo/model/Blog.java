@@ -67,5 +67,6 @@ public class Blog {
     )
     @JsonIgnoreProperties("moviesBelongedTo")
     private Set<MovieCategory> movieCategories;
-
+    @Column(name = "blog_hash_tags")
+    private String blogHashTags;
 }

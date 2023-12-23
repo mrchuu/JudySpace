@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userName;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")||authHeader.equals("Bearer null")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.equals("Bearer null")) {
             filterChain.doFilter(request, response);
             return;
         } else {
@@ -64,8 +64,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
 
                 }
-            }catch (Exception e) {
-                response.setHeader("Access-Control-Allow-Origin", "*");
+            } catch (Exception e) {
+                response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+                response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 ResponseMessage rm = new ResponseMessage("error", e.getMessage());
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);

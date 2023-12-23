@@ -44,7 +44,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Page<BlogDTO> getBlogsPaginated(BlogPageRequest blogPageRequest) {
 
-        Pageable pageable = PageRequest.of(0, blogPageRequest.getPageSize() * (blogPageRequest.getPageIndex() + 1));
+        Pageable pageable = PageRequest.of(blogPageRequest.getPageIndex(), blogPageRequest.getPageSize());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Page<BlogDTO> res = null;
         if (!auth.getName().equalsIgnoreCase("AnonymousUser")) {

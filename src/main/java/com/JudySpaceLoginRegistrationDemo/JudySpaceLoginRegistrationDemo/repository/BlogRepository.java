@@ -40,7 +40,7 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             "and (:category_id is Null or cj.category_id = :category_id) " +
             "and (:cateSize = 0 or cj.blog_id = bmc.blog_id ) " +
             "and (:cateSize = 0 or bmc.movie_category_id IN :movieCategories)" +
-            "group by cj.youtube_link, cj.caption, cj.blog_id, cj.title, cj.blog_thumbnail, cj.create_date, cj.is_deleted, cj.deleted_date, cj.update_date, cj.category_id, cj.tag_id, cj.commentCount, buj.blog_id, buj.upvoteCount " +
+            "group by cj.youtube_link, cj.caption, cj.blog_id, cj.title, cj.blog_thumbnail, cj.create_date, cj.is_deleted, cj.deleted_date, cj.update_date, cj.category_id, cj.tag_id, cj.commentCount, buj.blog_id, buj.upvoteCount, cj.blog_hash_tags " +
             "having (:cateSize = 0 or COUNT(DISTINCT bmc.movie_category_id) = :cateSize )" +
             "ORDER BY " +
             "CASE " +
@@ -53,7 +53,9 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
             "Case " +
             "WHEN :sortType = 'oldest' then cj.create_date end asc",
             countQuery = "select count(b.blog_id) from blog b " +
-                    "where b.is_deleted = false "
+                    "where b.is_deleted = false " +
+                    "and (:category_id is Null or b.category_id = :category_id) " +
+                    "and (:tagId is Null or b.tag_id = :tagId) "
             , nativeQuery = true)
     public Page<Blog> getBlogsByPage(
             @Param("searchName") String searchName,
