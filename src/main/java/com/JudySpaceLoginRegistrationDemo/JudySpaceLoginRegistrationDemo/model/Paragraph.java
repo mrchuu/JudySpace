@@ -38,5 +38,6 @@ public class Paragraph {
     private Instant updateDate;
     @OneToMany(mappedBy = "paragraph", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("paragraph")
+    @OrderBy("imageId")
     private Set<ImageParagraph> imageParagraphs;
 }

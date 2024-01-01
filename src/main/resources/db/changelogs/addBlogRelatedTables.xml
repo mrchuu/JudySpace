@@ -131,4 +131,28 @@
             ALTER TABLE public.blog ADD blog_hash_tags varchar NULL;
         </sql>
     </changeSet>
+    <changeSet id="moviePlaylist" author="chuson">
+        <sql>
+            CREATE TABLE public.movie_playlist (
+            id serial not NULL,
+            playlist_name varchar NULL,
+            create_date timestamp with time zone NULL,
+            update_date timestamp with time zone NULL,
+            CONSTRAINT movie_playlist_pk PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="moviePlaylistBlog" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.movie_playlist_blog (
+            blog_id int not NULL,
+            playlist_id int not NULL,
+            create_date time with time zone NULL,
+            CONSTRAINT movie_playlist_blog_pk PRIMARY KEY (blog_id,playlist_id),
+            CONSTRAINT movie_playlist_blog_fk FOREIGN KEY (blog_id) REFERENCES public.blog(blog_id),
+            CONSTRAINT movie_playlist_movie_playlist_fk FOREIGN KEY (playlist_id) REFERENCES public.movie_playlist(id)
+            );
+
+        </sql>
+    </changeSet>
 </databaseChangeLog>

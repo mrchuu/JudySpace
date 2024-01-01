@@ -69,4 +69,12 @@ public class Blog {
     private Set<MovieCategory> movieCategories;
     @Column(name = "blog_hash_tags")
     private String blogHashTags;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "movie_playlist_blog",
+            joinColumns = @JoinColumn(name = "blog_id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id")
+    )
+    @JsonIgnore
+    private Set<MoviePlayList> playListOfMovie;
 }

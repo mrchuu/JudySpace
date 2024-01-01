@@ -55,7 +55,10 @@ public class SecurityConfiguration {
                                         "/api/blog/getBlogDetail/{blogId}",
                                         "/api/blogTag/getAll",
                                         "/api/blog/updateBlog",
-                                        "/api/movieCategoryController/getAll"
+                                        "/api/movieCategoryController/getAll",
+                                        "/api/moviePlaylists/getAll",
+                                        "/api/music/playlist/getAll",
+                                        "/api/music/playList/getSongs/{playListId}"
                                 ).permitAll()
                                 .requestMatchers(swaggerWhiteList).permitAll()
                                 .requestMatchers(

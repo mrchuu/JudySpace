@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="musicTable1" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.music (
+            song_id serial NOT NULL,
+            song_name varchar NOT NULL,
+            artist_name varchar NOT NULL,
+            spotify_embeded_link varchar NULL,
+            "quote" varchar NULL,
+            music_art varchar NULL,
+            create_date timestamp with time zone NULL DEFAULT current_date,
+            CONSTRAINT music_pk PRIMARY KEY (song_id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="playlistTable" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.music_playlist (
+            music_palylist_id serial NOT NULL,
+            playlist_name varchar NOT NULL,
+            playlist_cover varchar NOT NULL,
+            create_date timestamp with time zone NULL DEFAULT current_date,
+            CONSTRAINT music_playlist_pk PRIMARY KEY (music_palylist_id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="playlistTableLink1" author="chuson">
+        <sql>
+            CREATE TABLE if not exists public.music_playlist_link (
+            song_id int NULL,
+            music_playlist_id int NULL,
+            create_date timestamp with time zone NULL DEFAULT current_date,
+            CONSTRAINT music_playlist_link_pk PRIMARY KEY (song_id,music_playlist_id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="changeIdName" author="chuson">
+        <sql>
+            ALTER TABLE public.music_playlist RENAME COLUMN music_palylist_id TO music_playlist_id;
+        </sql>
+    </changeSet>
+    <changeSet id="linking" author="chuson">
+        <sql>
+            ALTER TABLE public.music_playlist_link ADD CONSTRAINT music_playlist_link_fk FOREIGN KEY (song_id) REFERENCES public.music(song_id);
+            ALTER TABLE public.music_playlist_link ADD CONSTRAINT music_playlist_link_fk_1 FOREIGN KEY (music_playlist_id) REFERENCES public.music_playlist(music_playlist_id);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

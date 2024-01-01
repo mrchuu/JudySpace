@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,7 @@ public class ImageParagraph {
     private Instant updateDate;
     @OneToMany(mappedBy = "parentImage", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("parentImage")
-    private Set<ChildImages> childImages;
+    @OrderBy("id")
+    private List<ChildImages> childImages;
 
 }
