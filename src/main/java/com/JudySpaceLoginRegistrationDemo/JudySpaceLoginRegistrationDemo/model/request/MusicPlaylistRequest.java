@@ -13,4 +13,5 @@ public class MusicPlaylistRequest {
     private Integer musicPlaylistId;
     private String playListName;
     private String playListCover;
+
 }
